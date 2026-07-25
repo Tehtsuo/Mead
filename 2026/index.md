@@ -7,5 +7,5 @@ title: 2026 Batches
 ## 2026 Batches
 
 <!-- BATCH_LIST_START -->
-No batches logged yet.
+- [TRM Grotto Ember](TRM%20Grotto%20Ember/)
 <!-- BATCH_LIST_END -->
