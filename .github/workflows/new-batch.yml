@@ -1,0 +1,52 @@
+name: New Mead Batch
+
+on:
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "Year folder to add the batch to (defaults to current year)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: new-batch
+  cancel-in-progress: false
+
+jobs:
+  create-batch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate batch
+        id: generate
+        env:
+          BATCH_YEAR: ${{ inputs.year }}
+        run: python scripts/new_batch.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Add batch: ${{ steps.generate.outputs.batch_name }}"
+          git push
+
+      - name: Summary
+        run: |
+          {
+            echo "### New batch created"
+            echo ""
+            echo "**${{ steps.generate.outputs.batch_name }}**"
+            echo ""
+            echo "[Edit the batch page](${{ github.server_url }}/${{ github.repository }}/edit/main/${{ steps.generate.outputs.batch_path }}/index.md)"
+          } >> "$GITHUB_STEP_SUMMARY"
