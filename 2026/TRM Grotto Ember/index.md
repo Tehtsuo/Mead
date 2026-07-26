@@ -12,34 +12,23 @@ status: planning
 
 | | |
 |---|---|
-| **Style** | |
-| **Target volume** | |
 | **Start date** | |
 | **Bottling date** | |
 | **Status** | planning |
+| **Fermentrack** | |
+
+![QR code linking to this page](qr.svg)
 
 ## Recipe
 
-| Ingredient | Amount | Notes |
-|---|---|---|
-| Honey | | |
-| Water | | |
-| Yeast | | |
-| Nutrient | | |
-| Fruit / Spice | | |
+- Honey:
+- Water:
+- Yeast:
+- Nutrient:
+- Fruit / Spice:
 
 ## Gravity & Fermentation Log
 
-| Date | SG | Temp | Notes |
-|---|---|---|---|
-| | | | |
-
-## Racking / Timeline
+## Brewing Notes
 
 -
-
-## Tasting Notes
-
--
-
-## Photos

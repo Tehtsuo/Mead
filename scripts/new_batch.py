@@ -10,6 +10,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 WORDLIST_DIR = Path(__file__).resolve().parent / "wordlists"
 MAX_ATTEMPTS = 500
+SITE_URL = "https://tehtsuo.github.io/Mead"
 
 BATCH_TEMPLATE = """---
 title: {name}
@@ -25,37 +26,26 @@ status: planning
 
 | | |
 |---|---|
-| **Style** | |
-| **Target volume** | |
 | **Start date** | |
 | **Bottling date** | |
 | **Status** | planning |
+| **Fermentrack** | |
+
+![QR code linking to this page](qr.svg)
 
 ## Recipe
 
-| Ingredient | Amount | Notes |
-|---|---|---|
-| Honey | | |
-| Water | | |
-| Yeast | | |
-| Nutrient | | |
-| Fruit / Spice | | |
+- Honey:
+- Water:
+- Yeast:
+- Nutrient:
+- Fruit / Spice:
 
 ## Gravity & Fermentation Log
 
-| Date | SG | Temp | Notes |
-|---|---|---|---|
-| | | | |
-
-## Racking / Timeline
+## Brewing Notes
 
 -
-
-## Tasting Notes
-
--
-
-## Photos
 """
 
 YEAR_INDEX_TEMPLATE = """---
@@ -128,6 +118,14 @@ def add_batch_link(year_dir: Path, name: str):
     index_path.write_text(new_content, encoding="utf-8")
 
 
+def write_qr_code(batch_dir: Path, year: str, name: str):
+    import segno
+
+    encoded = name.replace(" ", "%20")
+    url = f"{SITE_URL}/{year}/{encoded}/"
+    segno.make(url).save(batch_dir / "qr.svg", scale=6)
+
+
 def main():
     year = os.environ.get("BATCH_YEAR", "").strip() or str(datetime.now().year)
     if not re.fullmatch(r"\d{4}", year):
@@ -140,6 +138,7 @@ def main():
     batch_dir = year_dir / name
     batch_dir.mkdir(parents=True, exist_ok=False)
     (batch_dir / "index.md").write_text(BATCH_TEMPLATE.format(name=name, year=year), encoding="utf-8")
+    write_qr_code(batch_dir, year, name)
 
     add_batch_link(year_dir, name)
 
