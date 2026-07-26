@@ -14,10 +14,6 @@ SITE_URL = "https://tehtsuo.github.io/Mead"
 
 BATCH_TEMPLATE = """---
 title: {name}
-batch: {name}
-year: {year}
-started:
-status: planning
 ---
 
 [← Back to {year} Batches](../)
@@ -28,7 +24,6 @@ status: planning
 |---|---|
 | **Start date** | |
 | **Bottling date** | |
-| **Status** | planning |
 | **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
