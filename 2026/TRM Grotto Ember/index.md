@@ -32,7 +32,11 @@ title: TRM Grotto Ember
 **June 15**
 - SG: ~1.028
 
+**June 19**
+- SG: ~1.028
+
 **July 20**
+- SG: ~1.028
 - Prepared EC-1118 starter
 - Acclimated starter gradually to existing must
 - Pitched into pyment
