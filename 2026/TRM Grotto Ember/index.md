@@ -8,7 +8,7 @@ title: TRM Grotto Ember
 
 | | |
 |---|---|
-| **Start date** | |
+| **Start date** | May 30, 2026 |
 | **Bottling date** | |
 | **Fermentrack** | |
 
@@ -16,9 +16,9 @@ title: TRM Grotto Ember
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
+- Honey: 2 lb Publix Honey
+- Water: ~90 oz Concord Grape Juice
+- Yeast: Bread Yeast
 - Nutrient:
 - Fruit / Spice:
 
