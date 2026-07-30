@@ -16,14 +16,14 @@ title: TRM Horizon Drift
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: ~1 3/4 lbs Kirkland Wildflower Honey
+- Maple Syrup: ~1 1/4 lbs Kirkland Maple Syrup
+- Water: ~1 gallon water
+- Yeast: Lalvin 71B
+- Nutrient: Fermaid-o
+- Wine Tannins
 
 ## Gravity & Fermentation Log
 
-## Brewing Notes
-
--
+June 25, 2026 : 1.100 OG
+July 25, 2026 : 0.980
