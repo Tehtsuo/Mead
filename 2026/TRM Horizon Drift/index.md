@@ -25,5 +25,5 @@ title: TRM Horizon Drift
 
 ## Gravity & Fermentation Log
 
-June 25, 2026 : 1.100 OG
-July 25, 2026 : 0.980
+* June 25, 2026 : 1.100 OG
+* July 25, 2026 : 0.980
