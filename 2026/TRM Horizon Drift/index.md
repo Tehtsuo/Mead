@@ -8,10 +8,9 @@ title: TRM Horizon Drift
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Acerglyn |
+| **Start date** | June 25, 2026 |
 | **Bottling date** | |
-| **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
 
