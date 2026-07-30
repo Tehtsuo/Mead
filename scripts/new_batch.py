@@ -138,6 +138,7 @@ def main():
     add_batch_link(year_dir, name)
 
     batch_path = f"{year}/{name}"
+    batch_url_path = f"{year}/{name.replace(' ', '%20')}"
     print(f"Created {batch_path}")
 
     gh_output = os.environ.get("GITHUB_OUTPUT")
@@ -145,6 +146,7 @@ def main():
         with open(gh_output, "a", encoding="utf-8") as f:
             f.write(f"batch_name={name}\n")
             f.write(f"batch_path={batch_path}\n")
+            f.write(f"batch_url_path={batch_url_path}\n")
 
 
 if __name__ == "__main__":

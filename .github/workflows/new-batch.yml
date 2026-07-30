@@ -51,5 +51,5 @@ jobs:
             echo ""
             echo "**${{ steps.generate.outputs.batch_name }}**"
             echo ""
-            echo "[Edit the batch page](${{ github.server_url }}/${{ github.repository }}/edit/main/${{ steps.generate.outputs.batch_path }}/index.md)"
+            echo "[Edit the batch page](${{ github.server_url }}/${{ github.repository }}/edit/main/${{ steps.generate.outputs.batch_url_path }}/index.md)"
           } >> "$GITHUB_STEP_SUMMARY"
