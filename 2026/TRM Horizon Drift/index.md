@@ -8,6 +8,7 @@ title: TRM Horizon Drift
 
 | | |
 |---|---|
+| **Type** | |
 | **Start date** | |
 | **Bottling date** | |
 | **Fermentrack** | |

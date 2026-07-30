@@ -22,6 +22,7 @@ title: {name}
 
 | | |
 |---|---|
+| **Type** | |
 | **Start date** | |
 | **Bottling date** | |
 | **Fermentrack** | |
