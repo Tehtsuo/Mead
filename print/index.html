@@ -65,7 +65,11 @@
     gap: 0.18in;
     width: fit-content;
     height: 1.5in;
-    padding: 0.06in;
+    /* QR SVGs bake in their own quiet-zone margin (~0.185in at this size,
+       measured from actual rendered pixels), so the QR's left edge already
+       has built-in whitespace the text's right edge doesn't. Extra right
+       padding balances the two visually. */
+    padding: 0.06in 0.245in 0.06in 0.06in;
     border: 1px dashed #bbb;
   }
   .label img {
@@ -120,7 +124,8 @@
     #sheet .label {
       box-sizing: border-box;
       margin: 0;
-      padding: 0.05in;
+      /* Same left/right imbalance correction as the on-screen .label padding. */
+      padding: 0.05in 0.235in 0.05in 0.05in;
       border: none;
       border-right: 1px dashed #999;
       border-bottom: 1px dashed #999;
@@ -239,7 +244,7 @@
       probe.style.top = "0";
       probe.style.margin = "0";
       probe.style.boxSizing = "border-box";
-      probe.style.padding = "0.05in";
+      probe.style.padding = "0.05in 0.235in 0.05in 0.05in";
       probe.style.border = "none";
       probe.style.borderRight = "1px dashed #999";
       probe.style.borderBottom = "1px dashed #999";
