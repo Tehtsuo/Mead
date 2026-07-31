@@ -176,6 +176,42 @@
       return new URL("../", location.href);
     }
 
+    function formatAutoLines(name, overview) {
+      const lines = [BRAND, name];
+
+      const abv = (overview["ABV"] || "").replace(/^~/, "").trim();
+      const type = (overview["Type"] || "").trim();
+      const descriptor = [abv && `${abv} ABV`, type].filter(Boolean).join(" ");
+      if (descriptor) lines.push(descriptor);
+
+      const bottled = (overview["Bottling date"] || "").trim();
+      if (bottled) lines.push(`Bottled ${bottled}`);
+
+      return lines;
+    }
+
+    async function autofill(batch, name) {
+      try {
+        const pageUrl = new URL(encodeURI(batch) + "/", siteRoot()).href;
+        const res = await fetch(pageUrl);
+        if (!res.ok) return;
+        const doc = new DOMParser().parseFromString(await res.text(), "text/html");
+
+        const overview = {};
+        doc.querySelectorAll("table tr").forEach((tr) => {
+          const cells = tr.querySelectorAll("th, td");
+          if (cells.length < 2) return;
+          const key = cells[0].textContent.trim();
+          if (key) overview[key] = cells[1].textContent.trim();
+        });
+
+        linesInput.value = formatAutoLines(name, overview).join("\n");
+        render();
+      } catch (e) {
+        // Batch page not reachable (offline, not deployed yet, etc.) - leave the manual default.
+      }
+    }
+
     function render() {
       const batch = batchInput.value.trim();
       qrImg.src = batch ? new URL(encodeURI(batch) + "/qr.svg", siteRoot()).href : "";
@@ -203,10 +239,15 @@
     linesInput.value = [BRAND, nameParam, "", ""].join("\n");
 
     batchInput.addEventListener("input", render);
+    batchInput.addEventListener("change", () => {
+      const batch = batchInput.value.trim();
+      if (batch) autofill(batch, batch.split("/").pop());
+    });
     linesInput.addEventListener("input", render);
     document.getElementById("printBtn").addEventListener("click", () => window.print());
 
     render();
+    if (batchParam) autofill(batchParam, nameParam);
   </script>
 </body>
 </html>
