@@ -15,6 +15,8 @@ title: TRM Horizon Drift
 
 ![QR code linking to this page](qr.svg)
 
+[Print label](../../print/?batch=2026/TRM%20Horizon%20Drift)
+
 ## Recipe
 
 - Honey: ~1 3/4 lbs Kirkland Wildflower Honey

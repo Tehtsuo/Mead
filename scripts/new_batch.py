@@ -30,6 +30,8 @@ title: {name}
 
 ![QR code linking to this page](qr.svg)
 
+[Print label](../../print/?batch={url_path})
+
 ## Recipe
 
 - Honey:
@@ -134,13 +136,17 @@ def main():
     name = generate_unique_name(year_dir)
     batch_dir = year_dir / name
     batch_dir.mkdir(parents=True, exist_ok=False)
-    (batch_dir / "index.md").write_text(BATCH_TEMPLATE.format(name=name, year=year), encoding="utf-8")
+
+    batch_path = f"{year}/{name}"
+    batch_url_path = f"{year}/{name.replace(' ', '%20')}"
+
+    (batch_dir / "index.md").write_text(
+        BATCH_TEMPLATE.format(name=name, year=year, url_path=batch_url_path), encoding="utf-8"
+    )
     write_qr_code(batch_dir, year, name)
 
     add_batch_link(year_dir, name)
 
-    batch_path = f"{year}/{name}"
-    batch_url_path = f"{year}/{name.replace(' ', '%20')}"
     print(f"Created {batch_path}")
 
     gh_output = os.environ.get("GITHUB_OUTPUT")

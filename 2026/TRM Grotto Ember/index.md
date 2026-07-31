@@ -15,6 +15,8 @@ title: TRM Grotto Ember
 
 ![QR code linking to this page](qr.svg)
 
+[Print label](../../print/?batch=2026/TRM%20Grotto%20Ember)
+
 ## Recipe
 
 My first small batch mead (actually a pyment).  It was an adventure!

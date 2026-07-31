@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Print Batch Label</title>
+<style>
+  :root {
+    --accent: #159957;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    margin: 2rem;
+    color: #222;
+  }
+  h1 {
+    font-size: 1.4rem;
+  }
+  .hint {
+    color: #666;
+    font-size: 0.85rem;
+    max-width: 34rem;
+  }
+  .controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 34rem;
+    margin: 1.5rem 0 2.5rem;
+  }
+  .controls label {
+    font-weight: 600;
+    font-size: 0.85rem;
+  }
+  .controls input,
+  .controls textarea {
+    font: inherit;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .controls textarea {
+    resize: vertical;
+    min-height: 5.5rem;
+    line-height: 1.4;
+  }
+  button {
+    align-self: flex-start;
+    padding: 0.55rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button:hover {
+    opacity: 0.9;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.18in;
+    width: fit-content;
+    height: 1.5in;
+    padding: 0.06in;
+    border: 1px dashed #bbb;
+  }
+  .label img {
+    width: 1.5in;
+    height: 1.5in;
+    flex: none;
+  }
+  .label .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.06in;
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .label .text div:nth-child(1) {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #444;
+  }
+  .label .text div:nth-child(2) {
+    font-size: 1.15em;
+    font-weight: 700;
+  }
+
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .label, .label * {
+      visibility: visible;
+    }
+    .label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: none;
+      padding: 0;
+    }
+    @page {
+      margin: 0.25in;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Print a batch label</h1>
+  <p class="hint">
+    Adjust the text below, then Print. In the print dialog, set margins to "None" and turn off
+    headers/footers for the cleanest cut &mdash; the label prints at its true 1.5&Prime; height.
+  </p>
+
+  <div class="controls">
+    <label for="batch">Batch path (e.g. 2026/TRM Horizon Drift)</label>
+    <input id="batch" type="text" placeholder="2026/TRM Horizon Drift">
+
+    <label for="lines">Label text (one line each)</label>
+    <textarea id="lines" rows="4"></textarea>
+
+    <button id="printBtn" type="button">Print</button>
+  </div>
+
+  <div class="label" id="label">
+    <img id="qr" alt="QR code linking to the batch page">
+    <div class="text" id="text"></div>
+  </div>
+
+  <script>
+    const BRAND = "Tiki Room Meadery";
+    const params = new URLSearchParams(location.search);
+    const batchInput = document.getElementById("batch");
+    const linesInput = document.getElementById("lines");
+    const qrImg = document.getElementById("qr");
+    const textEl = document.getElementById("text");
+
+    function siteRoot() {
+      // This page lives at <site>/print/; batches live at <site>/<year>/<name>/.
+      return new URL("../", location.href);
+    }
+
+    function render() {
+      const batch = batchInput.value.trim();
+      qrImg.src = batch ? new URL(encodeURI(batch) + "/qr.svg", siteRoot()).href : "";
+
+      textEl.innerHTML = "";
+      linesInput.value
+        .split("\n")
+        .filter((line) => line.length)
+        .forEach((line) => {
+          const div = document.createElement("div");
+          div.textContent = line;
+          textEl.appendChild(div);
+        });
+    }
+
+    const batchParam = params.get("batch") || "";
+    const nameParam = params.get("name") || batchParam.split("/").pop() || "";
+
+    batchInput.value = batchParam;
+    linesInput.value = [BRAND, nameParam, "", ""].join("\n");
+
+    batchInput.addEventListener("input", render);
+    linesInput.addEventListener("input", render);
+    document.getElementById("printBtn").addEventListener("click", () => window.print());
+
+    render();
+  </script>
+</body>
+</html>
