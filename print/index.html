@@ -123,6 +123,11 @@
     #sheet .label {
       border: none;
       padding: 0;
+      /* outline instead of border: doesn't affect box size, so the row-height
+         math above still lines up, and the negative offset keeps it from
+         being clipped when it falls on the sheet's own edge. */
+      outline: 1px dashed #999;
+      outline-offset: -1px;
     }
     @page {
       margin: 0.25in;
