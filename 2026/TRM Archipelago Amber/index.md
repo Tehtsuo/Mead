@@ -24,6 +24,7 @@ title: TRM Archipelago Amber
 - Yeast: Lalvin 71B
 - Nutrient: Fermaid-o
 - Fruit / Spice: 15 dates, 10 dried figs, lime zest, 1 stick cinnamon, 10 allspice berries, 2 cloves
+- Wine Tannins
 
 ## Gravity & Fermentation Log
 
