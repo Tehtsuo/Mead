@@ -77,6 +77,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     gap: 0.06in;
     font-family: Georgia, "Times New Roman", serif;
     line-height: 1.2;
@@ -93,17 +95,32 @@
     font-weight: 700;
   }
 
+  #sheet {
+    display: none;
+  }
+
   @media print {
     body * {
       visibility: hidden;
     }
-    .label, .label * {
+    #sheet, #sheet * {
       visibility: visible;
     }
-    .label {
+    #sheet {
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-start;
+      gap: 0.1in;
       position: absolute;
       top: 0;
       left: 0;
+      width: 8in;
+      /* 6 rows of 1.5in labels + 0.1in gaps between them, sized so the
+         last row clips exactly at the boundary instead of half-showing. */
+      height: 9.5in;
+      overflow: hidden;
+    }
+    #sheet .label {
       border: none;
       padding: 0;
     }
@@ -116,8 +133,9 @@
 <body>
   <h1>Print a batch label</h1>
   <p class="hint">
-    Adjust the text below, then Print. In the print dialog, set margins to "None" and turn off
-    headers/footers for the cleanest cut &mdash; the label prints at its true 1.5&Prime; height.
+    Adjust the text below, then Print &mdash; the page fills with as many copies of the label as
+    fit. In the print dialog, set margins to "None" and turn off headers/footers for the cleanest
+    cut.
   </p>
 
   <div class="controls">
@@ -135,13 +153,18 @@
     <div class="text" id="text"></div>
   </div>
 
+  <div id="sheet"></div>
+
   <script>
     const BRAND = "Tiki Room Meadery";
+    const SHEET_COPIES = 40;
     const params = new URLSearchParams(location.search);
     const batchInput = document.getElementById("batch");
     const linesInput = document.getElementById("lines");
     const qrImg = document.getElementById("qr");
     const textEl = document.getElementById("text");
+    const labelEl = document.getElementById("label");
+    const sheetEl = document.getElementById("sheet");
 
     function siteRoot() {
       // This page lives at <site>/print/; batches live at <site>/<year>/<name>/.
@@ -161,6 +184,11 @@
           div.textContent = line;
           textEl.appendChild(div);
         });
+
+      sheetEl.innerHTML = "";
+      for (let i = 0; i < SHEET_COPIES; i++) {
+        sheetEl.appendChild(labelEl.cloneNode(true));
+      }
     }
 
     const batchParam = params.get("batch") || "";
