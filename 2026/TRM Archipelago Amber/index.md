@@ -15,7 +15,7 @@ title: TRM Archipelago Amber
 
 ![QR code linking to this page](qr.svg)
 
-[Print label](../../print/?batch=2026/TRM%20Archipelago%20Amber)
+[Print label](../../print/?batch=2026/TRM%20Archipelago%20Amber) &middot; [Edit on GitHub](https://github.com/Tehtsuo/Mead/edit/main/2026/TRM%20Archipelago%20Amber/index.md)
 
 ## Recipe
 

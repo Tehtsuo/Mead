@@ -15,7 +15,7 @@ title: TRM Horizon Drift
 
 ![QR code linking to this page](qr.svg)
 
-[Print label](../../print/?batch=2026/TRM%20Horizon%20Drift)
+[Print label](../../print/?batch=2026/TRM%20Horizon%20Drift) &middot; [Edit on GitHub](https://github.com/Tehtsuo/Mead/edit/main/2026/TRM%20Horizon%20Drift/index.md)
 
 ## Recipe
 

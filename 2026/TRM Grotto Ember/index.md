@@ -15,7 +15,7 @@ title: TRM Grotto Ember
 
 ![QR code linking to this page](qr.svg)
 
-[Print label](../../print/?batch=2026/TRM%20Grotto%20Ember)
+[Print label](../../print/?batch=2026/TRM%20Grotto%20Ember) &middot; [Edit on GitHub](https://github.com/Tehtsuo/Mead/edit/main/2026/TRM%20Grotto%20Ember/index.md)
 
 ## Recipe
 

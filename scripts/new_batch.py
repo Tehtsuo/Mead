@@ -11,6 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 WORDLIST_DIR = Path(__file__).resolve().parent / "wordlists"
 MAX_ATTEMPTS = 500
 SITE_URL = "https://tehtsuo.github.io/Mead"
+GITHUB_REPO_URL = "https://github.com/Tehtsuo/Mead"
 
 BATCH_TEMPLATE = """---
 title: {name}
@@ -30,7 +31,7 @@ title: {name}
 
 ![QR code linking to this page](qr.svg)
 
-[Print label](../../print/?batch={url_path})
+[Print label](../../print/?batch={url_path}) &middot; [Edit on GitHub]({github_edit_url})
 
 ## Recipe
 
@@ -139,9 +140,13 @@ def main():
 
     batch_path = f"{year}/{name}"
     batch_url_path = f"{year}/{name.replace(' ', '%20')}"
+    github_edit_url = f"{GITHUB_REPO_URL}/edit/main/{batch_url_path}/index.md"
 
     (batch_dir / "index.md").write_text(
-        BATCH_TEMPLATE.format(name=name, year=year, url_path=batch_url_path), encoding="utf-8"
+        BATCH_TEMPLATE.format(
+            name=name, year=year, url_path=batch_url_path, github_edit_url=github_edit_url
+        ),
+        encoding="utf-8",
     )
     write_qr_code(batch_dir, year, name)
 
