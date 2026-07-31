@@ -1,8 +1,9 @@
 ---
 title: 2026 Batches
+description: 2026 Batches
 ---
 
-[← Back to Mead Log](../)
+[← Back to Tiki Room Meadery](../)
 
 ## 2026 Batches
 

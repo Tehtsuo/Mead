@@ -15,6 +15,7 @@ GITHUB_REPO_URL = "https://github.com/Tehtsuo/Mead"
 
 BATCH_TEMPLATE = """---
 title: {name}
+description: {name}
 ---
 
 [← Back to {year} Batches](../)
@@ -50,9 +51,10 @@ title: {name}
 
 YEAR_INDEX_TEMPLATE = """---
 title: {year} Batches
+description: {year} Batches
 ---
 
-[← Back to Mead Log](../)
+[← Back to Tiki Room Meadery](../)
 
 ## {year} Batches
 

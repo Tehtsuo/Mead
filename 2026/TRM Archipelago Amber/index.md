@@ -1,5 +1,6 @@
 ---
 title: TRM Archipelago Amber
+description: TRM Archipelago Amber
 ---
 
 [← Back to 2026 Batches](../)

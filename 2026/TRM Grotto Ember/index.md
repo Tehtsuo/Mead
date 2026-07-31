@@ -1,5 +1,6 @@
 ---
 title: TRM Grotto Ember
+description: TRM Grotto Ember
 ---
 
 [← Back to 2026 Batches](../)

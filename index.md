@@ -1,5 +1,5 @@
 ---
-title: Mead Log
+title: Tiki Room Meadery
 ---
 
 Public fermentation journal and batch history for my home mead brewing.

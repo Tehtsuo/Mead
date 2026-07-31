@@ -1,0 +1,15 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+@font-face {
+  font-family: "Super Funky";
+  src: url("../fonts/SuperFunky.ttf") format("truetype");
+  font-display: swap;
+}
+
+.page-header .project-name {
+  font-family: "Super Funky", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+}
