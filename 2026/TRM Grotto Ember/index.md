@@ -11,6 +11,7 @@ title: TRM Grotto Ember
 | **Type** | Pyment |
 | **Start date** | May 30, 2026 |
 | **Bottling date** | |
+| **ABV** | |
 
 ![QR code linking to this page](qr.svg)
 

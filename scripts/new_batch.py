@@ -25,6 +25,7 @@ title: {name}
 | **Type** | |
 | **Start date** | |
 | **Bottling date** | |
+| **ABV** | |
 | **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
