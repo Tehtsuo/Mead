@@ -10,7 +10,8 @@ title: TRM Horizon Drift
 |---|---|
 | **Type** | Acerglyn |
 | **Start date** | June 25, 2026 |
-| **Bottling date** | |
+| **Bottling date** | July 30, 2026 |
+| **ABV** | ~15% |
 
 ![QR code linking to this page](qr.svg)
 
@@ -27,3 +28,9 @@ title: TRM Horizon Drift
 
 * June 25, 2026 : 1.100 OG
 * July 25, 2026 : 0.980
+* July 30, 2026 : 0.980
+
+## Brewing Log
+
+* Back-sweetened with Kirkland Maple Syrup to 1.022
+* Pasteurized at 160 degrees for 2 minutes
