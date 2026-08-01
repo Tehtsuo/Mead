@@ -12,7 +12,7 @@ description: TRM Jungle Cellar
 | **Type** | Dragon's Blood |
 | **Start date** | June 4, 2020 |
 | **Bottling date** | |
-| **ABV** | |
+| **ABV** | 12% |
 
 ![QR code linking to this page](qr.svg)
 
