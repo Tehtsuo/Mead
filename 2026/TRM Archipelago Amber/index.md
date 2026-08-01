@@ -9,7 +9,7 @@ description: TRM Archipelago Amber
 
 | | |
 |---|---|
-| **Type** | Fruitcake Mead |
+| **Type** | Fortified Fruitcake |
 | **Start date** | June 25, 2026 |
 | **Bottling date** | July 31, 2026 |
 | **ABV** | 20% |
