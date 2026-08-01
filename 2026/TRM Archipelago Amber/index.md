@@ -11,8 +11,8 @@ description: TRM Archipelago Amber
 |---|---|
 | **Type** | Fruitcake Mead |
 | **Start date** | June 25, 2026 |
-| **Bottling date** | |
-| **ABV** | |
+| **Bottling date** | July 31, 2026 |
+| **ABV** | 20% |
 
 ![QR code linking to this page](qr.svg)
 
@@ -31,8 +31,8 @@ description: TRM Archipelago Amber
 
 * June 25, 2026 :  1.110 OG
 * July 25, 2026 : 1.014
-  
+* July 31, 2026 :  1.012 FG
 
 ## Brewing Notes
 
-- Todo: Rack, add 750ml Kraken Rum, backsweeten with honey if needed
+* Fortified with 750ml Kraken Rum, back-sweetened with Kirkland Wildflower honey to 1.030
