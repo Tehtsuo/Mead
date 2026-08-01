@@ -9,11 +9,10 @@ description: TRM Mirage Glow
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Dragon's Blood |
+| **Start date** | June 4, 2026 |
 | **Bottling date** | |
-| **ABV** | |
-| **Fermentrack** | |
+| **ABV** | 12% |
 
 ![QR code linking to this page](qr.svg)
 
@@ -21,14 +20,18 @@ description: TRM Mirage Glow
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: 3 lbs Kirkland Wildflower
+- Water: Fill to 1 gallon
+- Yeast: Lalvin 71B
+- Nutrient: Fermaid-o
+- Earl Grey Tea
 
 ## Gravity & Fermentation Log
 
+* June 15, 2026 : 1.026
+* June 23, 2026 : 1.018
+* August 1, 2026 : 1.012
+
 ## Brewing Notes
 
--
+- June 23 : Racked, added 4 pounds of 3 berry mix
