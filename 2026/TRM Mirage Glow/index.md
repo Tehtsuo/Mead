@@ -16,7 +16,7 @@ description: TRM Mirage Glow
 
 ![QR code linking to this page](qr.svg)
 
-[Print label](../../print/?batch=2026/TRM%20Mirage%20Glow) &middot; [Edit on GitHub](https://github.com/Tehtsuo/Mead/edit/main/2026/TRM%20Mirage%20Glow/index.md)
+[Print label](../../print/?batch=2026/TRM%20Mirage%20Glow) &middot; [Edit on GitHub](https://github.com/Tehtsuo/Mead/edit/main/2026/TRM%20Mirage%20Glow/index.md) &middot; [View live page](https://tehtsuo.github.io/Mead/2026/TRM%20Mirage%20Glow/)
 
 ## Recipe
 
