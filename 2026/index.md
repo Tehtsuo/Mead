@@ -12,4 +12,5 @@ description: 2026 Batches
 - [TRM Horizon Drift](TRM%20Horizon%20Drift/)
 - [TRM Archipelago Amber](TRM%20Archipelago%20Amber/)
 - [TRM Mirage Glow](TRM%20Mirage%20Glow/)
+- [TRM Jungle Cellar](TRM%20Jungle%20Cellar/)
 <!-- BATCH_LIST_END -->
