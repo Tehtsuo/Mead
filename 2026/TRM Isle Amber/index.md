@@ -13,7 +13,7 @@ description: TRM Isle Amber
 | **Start date** | August 11, 2026 |
 | **Bottling date** | |
 | **ABV** | |
-| **Fermentrack** | https://www.fermentrack.net/ferment_log/ac5e38ed-13bb-470e-b92d-1f09b57ec299 |
+| **Fermentrack** | [View Log](https://www.fermentrack.net/ferment_log/ac5e38ed-13bb-470e-b92d-1f09b57ec299) |
 
 ![QR code linking to this page](qr.svg)
 
