@@ -13,4 +13,5 @@ description: 2026 Batches
 - [TRM Archipelago Amber](TRM%20Archipelago%20Amber/)
 - [TRM Mirage Glow](TRM%20Mirage%20Glow/)
 - [TRM Jungle Cellar](TRM%20Jungle%20Cellar/)
+- [TRM Isle Amber](TRM%20Isle%20Amber/)
 <!-- BATCH_LIST_END -->
