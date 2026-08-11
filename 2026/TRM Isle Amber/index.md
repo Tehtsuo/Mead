@@ -9,11 +9,11 @@ description: TRM Isle Amber
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Traditional |
+| **Start date** | August 11, 2026 |
 | **Bottling date** | |
 | **ABV** | |
-| **Fermentrack** | |
+| **Fermentrack** | https://www.fermentrack.net/ferment_log/ac5e38ed-13bb-470e-b92d-1f09b57ec299 |
 
 ![QR code linking to this page](qr.svg)
 
@@ -21,14 +21,14 @@ description: TRM Isle Amber
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: 3 lbs 4 oz Kirkland Wildflower Honey
+- Water: To 1.2 gallons
+- Yeast: Lalvin 71B
+- Nutrient: Fermaid-O
+- Tannins: 1/2 tsp Wine Tannins
 
 ## Gravity & Fermentation Log
 
 ## Brewing Notes
 
--
+- 
