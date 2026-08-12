@@ -31,4 +31,4 @@ description: TRM Isle Amber
 
 ## Brewing Notes
 
-- 1.087 OG
+- 1.110 OG
