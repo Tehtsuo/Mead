@@ -31,7 +31,9 @@ description: TRM Jungle Cellar
 * June 15, 2026 :  1.030
 * June 23, 2026 :  1.020
 * August 1, 2026 :  1.020
+* August 13, 2026 : 1.016
 
 ## Brewing Notes
 
 - June 23, 2026 : Racked, added 4 pounds of 3 berry mix
+- August 13, 2026 : Backsweetened to 1.056
