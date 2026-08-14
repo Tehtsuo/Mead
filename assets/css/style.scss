@@ -36,6 +36,14 @@ body {
   );
 }
 
+// ---- Bamboo trim bar across the very top of the page ----
+.bamboo-trim {
+  height: 16px;
+  background-repeat: repeat-x;
+  background-size: 100px 16px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='16' viewBox='0 0 100 16'%3E%3Crect x='0' y='2' width='100' height='12' rx='6' fill='%23BE9A63'/%3E%3Crect x='0' y='2' width='100' height='5' rx='6' fill='%23D4B37E'/%3E%3Crect x='0' y='0' width='8' height='16' rx='4' fill='%23805B34'/%3E%3C/svg%3E");
+}
+
 // ---- Header: sunset gradient, leaf texture, wave divider, torches ----
 .page-header {
   position: relative;
@@ -110,9 +118,22 @@ body {
 .main-content {
   position: relative;
   margin-top: -1.5rem;
-  background: #FFFDF7;
+  background-color: #FFFDF7;
   border-radius: 1rem 1rem 0 0;
   box-shadow: 0 -6px 24px rgba(74, 50, 34, 0.12);
+}
+
+// Bamboo pole columns flanking the content card. Skipped below the medium
+// breakpoint, where the theme's own responsive padding (1rem) is too
+// narrow to fit a 22px column without crowding the text.
+@media (min-width: 42em) {
+  .main-content {
+    $bamboo-pole: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='100' viewBox='0 0 28 100'%3E%3Crect x='2' y='0' width='24' height='100' rx='12' fill='%23BE9A63'/%3E%3Crect x='2' y='0' width='11' height='100' rx='12' fill='%23D4B37E'/%3E%3Crect x='0' y='0' width='28' height='8' rx='4' fill='%23805B34'/%3E%3C/svg%3E");
+    background-image: $bamboo-pole, $bamboo-pole;
+    background-position: left top, right top;
+    background-repeat: repeat-y, repeat-y;
+    background-size: 22px 100px, 22px 100px;
+  }
 }
 
 .main-content::before {
@@ -157,6 +178,11 @@ body {
 
 .main-content tr:nth-child(odd) td {
   background: #FBF3E2;
+}
+
+.main-content tr td:first-child {
+  background: linear-gradient(180deg, #C9A46A, #A9793F);
+  color: #FFF3DC;
 }
 
 // ---- Lists: flower bullets by default, card treatment for nav-only
