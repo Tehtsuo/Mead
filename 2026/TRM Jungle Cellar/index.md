@@ -37,3 +37,7 @@ description: TRM Jungle Cellar
 
 - June 23, 2026 : Racked, added 4 pounds of 3 berry mix
 - August 13, 2026 : Backsweetened to 1.056
+
+## Bottled
+
+![Bottled TRM Jungle Cellar](bottled.png)
