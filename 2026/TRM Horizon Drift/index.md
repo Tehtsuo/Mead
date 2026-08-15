@@ -37,3 +37,9 @@ description: TRM Horizon Drift
 
 * Back-sweetened with Kirkland Maple Syrup to 1.022
 * Pasteurized at 160 degrees for 2 minutes
+
+## Tasting Notes
+
+* August 15, 2026 : Tasting
+
+![TRM Horizon Drift tasting](tasting-2026-08-15.png)
