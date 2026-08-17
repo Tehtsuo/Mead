@@ -13,7 +13,8 @@ One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 - **What:** Reworked the [demo batch page](demo-batch/) so its Overview table, Recipe list, and
   Gravity & Fermentation Log are no longer hand-typed Markdown — they're now structured fields
   (`batch:`, `recipe:`, `gravity_log:`) in the page's own YAML front matter, rendered by a new
-  Liquid partial, `dev-preview/demo-batch/_includes/batch-data.html`, via `{% include_relative %}`.
+  Liquid partial, `dev-preview/demo-batch/_includes/batch-data.html`, using Jekyll's
+  `include_relative` tag.
   Free-form prose (Brewing Notes) is untouched, still plain Markdown in the page body, per
   FEEDBACK.md's "don't force narrative text into structured fields" guidance. Also removed the
   gravity trend chart added 2026-08-16 and its now-unused `.gravity-chart*` CSS, since
