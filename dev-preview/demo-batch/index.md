@@ -7,6 +7,7 @@ batch:
   start_date: January 1, 2026
   bottling_date: March 1, 2026
   abv: "~13%"
+  abv_percent: 13
 recipe:
   - "Honey: 3 lbs Sample Wildflower"
   - "Water: Fill to 1 gallon"
@@ -31,7 +32,8 @@ a realistic canvas to improve without ever touching real batch content.
 sections below are rendered from structured fields in this page's front matter — not hand-typed
 Markdown — via a shared partial, [`_includes/batch-data.html`](https://github.com/Tehtsuo/Mead/blob/main/dev-preview/demo-batch/_includes/batch-data.html).
 Open ["Edit on GitHub"](https://github.com/Tehtsuo/Mead/edit/main/dev-preview/demo-batch/index.md)
-to see the data shape. Brewing Notes below stays free-form prose, as before.
+to see the data shape. Brewing Notes below stays free-form prose, as before. This is now one of
+three sample batches feeding the [all-batches index](../batches/).
 
 {% include_relative _includes/batch-data.html %}
 

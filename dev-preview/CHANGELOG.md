@@ -8,6 +8,46 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-17 — Structured batch data, take 2: all-batches index, sortable by type/ABV
+
+- **What:** Added [`dev-preview/batches/`](batches/), a prototype "all batches" index page that
+  collects every page with a `batch:` front-matter field via `{% raw %}site.pages | where_exp{% endraw %}`
+  and renders two tables from it — one sorted by `batch.type`, one sorted by a new
+  `batch.abv_percent` numeric field (descending) — with no hand-typed row anywhere on the page.
+  To give the index something to sort, added two more sample batches,
+  [`demo-batch-2`](demo-batch-2/) (Traditional, ~11%) and [`demo-batch-3`](demo-batch-3/)
+  (Melomel, ~14.5%), alongside the existing [`demo-batch`](demo-batch/) (Metheglin, ~13%), each
+  using the same structured-front-matter pattern and its own copy of the `batch-data.html`
+  partial (`include_relative` can't traverse out of a page's own directory, per the note in the
+  prior entry). Also added `batch.abv_percent: <number>` to all three sample batches' front
+  matter — the existing `batch.abv` stays a free-text display string (e.g. `"~13%"`), while
+  `abv_percent` is a plain number used only for the `sort` filter, since Liquid's `sort` can't
+  parse `"~13%"` numerically. Linked the new page from `dev-preview/index.md`.
+- **Why:** This is step 2 of FEEDBACK.md's primary direction — "prototype an all batches index
+  page fed by the data collection (e.g. sortable by type or ABV) — this is the kind of thing
+  that's basically impossible with the current markdown-only approach." With three batches now
+  carrying structured front matter, the index page proves that out: no per-batch table to
+  maintain by hand, just a Liquid `sort` over whatever pages declare a `batch:` field.
+- **Scope note — same deviation as the prior entry, still applies:** this uses `site.pages` plus
+  each page's own front matter (not a real `_data/` collection or a shared root `_includes/`)
+  because the sandbox's hard file-scope limit doesn't cover root `_data/**` or `_includes/**`.
+  That's the mechanism a genuine site-wide version would need — flagged again here now that a
+  second cycle has leaned on the same constraint, in case the human wants to widen scope for a
+  future cycle instead of continuing to work around it with page-scoped front matter.
+- **Not done:** interactive (click-to-sort) tables — this cycle used two pre-sorted static
+  sections instead, to keep the change small; client-side sorting could be a follow-up per
+  FEEDBACK.md's "iterate on ergonomics" suggestion, if wanted.
+- **Assets:** None.
+- **Scope:** Added `dev-preview/batches/index.md`, `dev-preview/demo-batch-2/` (`index.md` +
+  `_includes/batch-data.html`), `dev-preview/demo-batch-3/` (`index.md` +
+  `_includes/batch-data.html`); edited `dev-preview/demo-batch/index.md` (added `abv_percent`,
+  updated intro text) and `dev-preview/index.md` (added link) — all under `dev-preview/**`.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built
+  the full site to a scratch directory, and confirmed: both sorted tables render in the correct
+  order (type: Melomel/Metheglin/Traditional; ABV descending: 14.5%/13%/11%), all three sample
+  batch pages render correctly from their own front matter, and no `_includes/` directory or
+  build artifact leaked into the output or the repo.
+
 ## 2026-08-17 — Structured batch data, take 1: front matter + Liquid partial
 
 - **What:** Reworked the [demo batch page](demo-batch/) so its Overview table, Recipe list, and
