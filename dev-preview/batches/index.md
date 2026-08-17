@@ -19,8 +19,17 @@ why this prototype lives here instead of a site-wide `_data/` collection.)*
 Click a column header to sort by it; click again to reverse. This replaces the previous prototype's
 two separate pre-sorted tables (by type, by ABV) with one table sortable by any column — the
 server still renders it pre-sorted by type, so the page is still useful with JavaScript off.
+Click a type chip below to narrow the table to just that type; click "All" to clear the filter.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
+{% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
+
+<div class="filter-chips" role="group" aria-label="Filter batches by type">
+  <button type="button" class="filter-chip is-active" data-filter-type="all" aria-pressed="true">All ({{ all_batches.size }})</button>
+{% for group in batch_type_groups %}
+  <button type="button" class="filter-chip" data-filter-type="{{ group.name | downcase }}" aria-pressed="false">{{ group.name }} ({{ group.items.size }})</button>
+{% endfor %}
+</div>
 
 <table class="sortable-table" id="batches-table">
   <thead>
@@ -78,6 +87,26 @@ server still renders it pre-sorted by type, so the page is still useful with Jav
         otherButton.closest('th').setAttribute('aria-sort', 'none');
       });
       th.setAttribute('aria-sort', ascending ? 'ascending' : 'descending');
+    });
+  });
+
+  var filterChips = document.querySelectorAll('.filter-chip[data-filter-type]');
+  filterChips.forEach(function (chip) {
+    chip.addEventListener('click', function () {
+      var filterType = chip.getAttribute('data-filter-type');
+
+      filterChips.forEach(function (c) {
+        c.classList.remove('is-active');
+        c.setAttribute('aria-pressed', 'false');
+      });
+      chip.classList.add('is-active');
+      chip.setAttribute('aria-pressed', 'true');
+
+      var rows = tbody.querySelectorAll('tr');
+      rows.forEach(function (row) {
+        var show = filterType === 'all' || row.getAttribute('data-type') === filterType;
+        row.style.display = show ? '' : 'none';
+      });
     });
   });
 })();

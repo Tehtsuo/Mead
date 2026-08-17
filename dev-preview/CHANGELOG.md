@@ -8,6 +8,36 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-17 — Structured batch data, take 4: click-to-filter by type
+
+- **What:** Added a row of type filter chips ("All", "Melomel", "Metheglin", "Traditional", each
+  labeled with a live count) above the [all-batches table](batches/). Clicking a chip hides every
+  row whose `data-type` doesn't match, complementing the existing click-to-sort headers rather than
+  replacing them — sorting and filtering compose freely (e.g. filter to Melomel, then sort what's
+  left by ABV). Chips are `{% raw %}{{ group.name }} ({{ group.items.size }}){% endraw %}` derived
+  from `all_batches | group_by_exp: "p", "p.batch.type"`, so the chip list and counts are entirely
+  data-driven — adding a fourth batch of a new type would add a fourth chip automatically, no
+  hand-maintained list. Styled as pill buttons (`.filter-chips`/`.filter-chip` in
+  `assets/css/dev-preview.scss`) matching the existing sunset-gradient active state used elsewhere
+  on the site, with `aria-pressed` on each chip for accessibility. Same progressive-enhancement
+  approach as the sort feature: with JavaScript disabled, all rows show and the chips render but do
+  nothing, so the table degrades gracefully rather than breaking.
+- **Why:** This is FEEDBACK.md's step 3, "iterate on ergonomics." With three batches the table is
+  small enough to scan, but the whole point of the structured-data direction is that this scales —
+  once there are a dozen+ real batches, being able to narrow to "just the Melomels" is a much bigger
+  ergonomic win than sorting alone, and it was a natural next increment on the take-3 sortable table
+  rather than a new mechanism.
+- **Assets:** None — chips are plain HTML/CSS, no new icon files.
+- **Scope:** Edited `dev-preview/batches/index.md` (filter chip markup + JS) and
+  `assets/css/dev-preview.scss` (added `.filter-chips`/`.filter-chip` rules) — both in scope.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors, correct chip labels/counts
+  (`All (3)`, `Melomel (1)`, `Metheglin (1)`, `Traditional (1)`), and no `_includes/` or build
+  artifact leakage. Used headless Chromium (Playwright) to click through: clicking a type chip hides
+  the other rows and sets `aria-pressed`/`.is-active` correctly, sorting still works correctly on
+  the filtered subset, and clicking "All" restores every row. Scratch build/server artifacts were
+  removed after.
+
 ## 2026-08-17 — Structured batch data, take 3: click-to-sort batches table
 
 - **What:** Replaced the [all-batches index](batches/)'s two separate pre-sorted tables (one
