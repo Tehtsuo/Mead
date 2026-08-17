@@ -8,6 +8,35 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-17 — Structured batch data, take 3: click-to-sort batches table
+
+- **What:** Replaced the [all-batches index](batches/)'s two separate pre-sorted tables (one
+  sorted by type, one by ABV) with a single table sortable by any column — Type, ABV, Start date,
+  or Bottling date — via clickable column headers. Each `<th>` header is a `<button>` with
+  `data-sort-key`/`data-sort-type`; a small vanilla-JS snippet (inline in the page, no new files
+  or dependencies) re-orders the existing `<tr>` rows in the DOM on click and toggles
+  ascending/descending via `aria-sort`, with a matching `▲`/`▼`/`⇅` indicator added to
+  `assets/css/dev-preview.scss`. Server-side rendering is unchanged — Liquid still emits the table
+  pre-sorted by type (and now stamps each row with `data-start`/`data-bottling` Unix-timestamp
+  attributes via the `date` filter, so date columns sort correctly even though the display text
+  stays a human-readable string) — so the page still works with JavaScript disabled, sorting is
+  just a client-side enhancement on top.
+- **Why:** This is FEEDBACK.md's step 3, "iterate on ergonomics," and directly closes the "Not
+  done" item flagged in the prior entry: "interactive (click-to-sort) tables... could be a
+  follow-up." One sortable table is also a better demonstration of the structured-data payoff than
+  two hardcoded tables — any column becomes sortable for free once the data is structured, not
+  just the two columns a cycle happened to hand-code a sort for.
+- **Assets:** None — the sort indicators are plain Unicode characters (`▲`/`▼`/`⇅`) in CSS
+  `content`, no new icon files.
+- **Scope:** Edited `dev-preview/batches/index.md` (table markup + inline script) and
+  `assets/css/dev-preview.scss` (added `.sortable-table` rules) — both in scope.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors and correct `data-*` timestamp
+  values on each row, then used a headless Chromium (Playwright, already available in this
+  environment) to load the built page and click through: default load renders sorted by type;
+  clicking ABV sorts ascending then descending on a second click; clicking Start date sorts
+  chronologically. All matched expectations. Scratch build/server artifacts were removed after.
+
 ## 2026-08-17 — Structured batch data, take 2: all-batches index, sortable by type/ABV
 
 - **What:** Added [`dev-preview/batches/`](batches/), a prototype "all batches" index page that

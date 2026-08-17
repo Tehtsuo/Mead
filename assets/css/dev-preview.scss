@@ -193,6 +193,43 @@ body {
   color: #FFF3DC;
 }
 
+// ---- Sortable table headers (click-to-sort, dev-preview/batches/) ----
+.sortable-table th button {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+
+  &::after {
+    content: "⇅";
+    opacity: 0.55;
+    font-size: 0.85em;
+  }
+}
+
+.sortable-table th[aria-sort="ascending"] button::after {
+  content: "▲";
+  opacity: 1;
+}
+
+.sortable-table th[aria-sort="descending"] button::after {
+  content: "▼";
+  opacity: 1;
+}
+
 // ---- Lists: flower bullets by default, card treatment for nav-only
 //      lists (batch listings on the home/year pages) ----
 .main-content ul {
