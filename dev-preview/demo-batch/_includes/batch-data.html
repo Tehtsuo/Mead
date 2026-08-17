@@ -1,0 +1,27 @@
+<!-- Renders Overview/Recipe/Gravity Log from this page's front matter (page.batch / page.recipe / page.gravity_log). See dev-preview/CHANGELOG.md for why it lives here. -->
+## Overview
+
+<table>
+  <tbody>
+    <tr><td><strong>Type</strong></td><td>{{ page.batch.type }}</td></tr>
+    <tr><td><strong>Start date</strong></td><td>{{ page.batch.start_date }}</td></tr>
+    <tr><td><strong>Bottling date</strong></td><td>{{ page.batch.bottling_date }}</td></tr>
+    <tr><td><strong>ABV</strong></td><td>{{ page.batch.abv }}</td></tr>
+  </tbody>
+</table>
+
+## Recipe
+
+<ul>
+{% for item in page.recipe %}
+  <li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+## Gravity & Fermentation Log
+
+<ul>
+{% for entry in page.gravity_log %}
+  <li>{{ entry.date }} : {{ entry.reading }}</li>
+{% endfor %}
+</ul>
