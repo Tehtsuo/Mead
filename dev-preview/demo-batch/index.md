@@ -9,11 +9,16 @@ batch:
   abv: "~13%"
   abv_percent: 13
 recipe:
-  - "Honey: 3 lbs Sample Wildflower"
-  - "Water: Fill to 1 gallon"
-  - "Yeast: Sample Yeast Strain"
-  - "Nutrient: Sample Nutrient"
-  - "Spice: Cinnamon, cloves"
+  - label: "Honey"
+    detail: "3 lbs Sample Wildflower"
+  - label: "Water"
+    detail: "Fill to 1 gallon"
+  - label: "Yeast"
+    detail: "Sample Yeast Strain"
+  - label: "Nutrient"
+    detail: "Sample Nutrient"
+  - label: "Spice"
+    detail: "Cinnamon, cloves"
 gravity_log:
   - date: January 1, 2026
     reading: "1.100 OG"
@@ -32,8 +37,10 @@ a realistic canvas to improve without ever touching real batch content.
 sections below are rendered from structured fields in this page's front matter — not hand-typed
 Markdown — via a shared partial, [`_includes/batch-data.html`](https://github.com/Tehtsuo/Mead/blob/main/dev-preview/demo-batch/_includes/batch-data.html).
 Open ["Edit on GitHub"](https://github.com/Tehtsuo/Mead/edit/main/dev-preview/demo-batch/index.md)
-to see the data shape. Brewing Notes below stays free-form prose, as before. This is now one of
-three sample batches feeding the [all-batches index](../batches/).
+to see the data shape. Recipe items are now `label`/`detail` pairs (e.g. `label: Honey`,
+`detail: 3 lbs Sample Wildflower`) instead of one pre-formatted string per line, so an ingredient's
+label is itself queryable data, not just display text. Brewing Notes below stays free-form prose,
+as before. This is now one of four sample batches feeding the [all-batches index](../batches/).
 
 {% include_relative _includes/batch-data.html %}
 

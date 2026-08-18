@@ -9,11 +9,16 @@ batch:
   abv: "~14.5%"
   abv_percent: 14.5
 recipe:
-  - "Honey: 4 lbs Sample Clover"
-  - "Fruit: 3 lbs Sample Raspberries (secondary)"
-  - "Water: Fill to 1 gallon"
-  - "Yeast: Sample High-ABV Strain"
-  - "Nutrient: Sample Nutrient (staggered)"
+  - label: "Honey"
+    detail: "4 lbs Sample Clover"
+  - label: "Fruit"
+    detail: "3 lbs Sample Raspberries (secondary)"
+  - label: "Water"
+    detail: "Fill to 1 gallon"
+  - label: "Yeast"
+    detail: "Sample High-ABV Strain"
+  - label: "Nutrient"
+    detail: "Sample Nutrient (staggered)"
 gravity_log:
   - date: March 3, 2026
     reading: "1.110 OG"

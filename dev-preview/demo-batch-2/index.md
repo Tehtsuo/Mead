@@ -9,10 +9,14 @@ batch:
   abv: "~11%"
   abv_percent: 11
 recipe:
-  - "Honey: 3.5 lbs Sample Orange Blossom"
-  - "Water: Fill to 1 gallon"
-  - "Yeast: Sample Champagne Strain"
-  - "Nutrient: Sample Nutrient (staggered)"
+  - label: "Honey"
+    detail: "3.5 lbs Sample Orange Blossom"
+  - label: "Water"
+    detail: "Fill to 1 gallon"
+  - label: "Yeast"
+    detail: "Sample Champagne Strain"
+  - label: "Nutrient"
+    detail: "Sample Nutrient (staggered)"
 gravity_log:
   - date: February 10, 2026
     reading: "1.090 OG"

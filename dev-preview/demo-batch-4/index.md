@@ -6,11 +6,16 @@ batch:
   type: Pyment
   start_date: July 20, 2026
 recipe:
-  - "Honey: 2 lbs Sample Wildflower"
-  - "Fruit: ~90 oz Sample Grape Juice"
-  - "Yeast: Sample Bread Yeast"
-  - "Nutrient:"
-  - "Fruit / Spice:"
+  - label: "Honey"
+    detail: "2 lbs Sample Wildflower"
+  - label: "Fruit"
+    detail: "~90 oz Sample Grape Juice"
+  - label: "Yeast"
+    detail: "Sample Bread Yeast"
+  - label: "Nutrient"
+    detail:
+  - label: "Fruit / Spice"
+    detail:
 gravity_log:
   - date: July 20, 2026
     reading: "1.090 OG"

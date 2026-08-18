@@ -14,7 +14,7 @@
 
 <ul>
 {% for item in page.recipe %}
-  <li>{{ item }}</li>
+  <li><strong>{{ item.label }}:</strong>{% if item.detail %} {{ item.detail }}{% endif %}</li>
 {% endfor %}
 </ul>
 

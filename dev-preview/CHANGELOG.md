@@ -8,6 +8,44 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-18 — Structured batch data, take 8: recipe items as label/detail pairs
+
+- **What:** Recipe items in front matter were still a list of one hand-formatted string per line
+  (e.g. `"Honey: 3 lbs Sample Wildflower"`) — genuinely structured for the Overview table and
+  Gravity log, but not for Recipe, where the label ("Honey") and its detail were still baked
+  together as display text rather than separate fields. Split each recipe entry into a `label`/
+  `detail` pair (e.g. `label: Honey`, `detail: 3 lbs Sample Wildflower`) across all four sample
+  batches, and updated all four `batch-data.html` partial copies to render
+  `<li><strong>{{ item.label }}:</strong> {{ item.detail }}</li>`. For entries with no detail yet
+  (demo-batch-4's `Nutrient` and `Fruit / Spice`, which were already deliberately blank to mirror
+  a real in-progress batch), the detail simply renders empty rather than needing a placeholder —
+  matching exactly how the real "TRM Grotto Ember" page's own blank `Nutrient:`/`Fruit / Spice:`
+  lines look (confirmed by comparing rendered output to `2026/TRM Grotto Ember/index.md`, read
+  only for reference, not modified).
+- **Why:** This is still FEEDBACK.md's primary direction — "recipe ingredients" is explicitly
+  named as one of the fact-like fields to structure — and take 1 only partly delivered on it: the
+  Overview/Gravity fields became real structured data, but Recipe items stayed pre-formatted
+  strings, the same category of problem the whole effort exists to move away from (not queryable,
+  not filterable, just display text sitting in YAML instead of Markdown). Splitting `label` from
+  `detail` closes that gap and keeps every structured field at the same granularity, without
+  touching the free-form Brewing Notes prose, which stays exactly as-is per FEEDBACK.md's
+  narrative-text guidance.
+- **Assets:** None — no markup changes beyond the existing `<strong>`/`<li>` structure, no new
+  icon files.
+- **Scope:** Edited `recipe:` front matter in all four sample batches
+  (`dev-preview/demo-batch{,-2,-3,-4}/index.md`) and the Recipe loop in all four
+  `_includes/batch-data.html` copies; also updated `demo-batch/index.md`'s intro text to describe
+  the new shape and fix a stale "one of three" batch count (there are now four sample batches,
+  since take 7 added a fourth) — all under `dev-preview/**`, in scope. No CSS changes.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors and no `_includes/` leakage.
+  Checked the rendered HTML directly (this change is pure server-side Liquid with no JS behavior,
+  so no browser automation was needed): all four batches' Recipe sections render
+  `<strong>Label:</strong> detail` correctly, and demo-batch-4's two detail-less entries render as
+  `<strong>Nutrient:</strong>`/`<strong>Fruit / Spice:</strong>` with nothing after the colon,
+  matching the real Grotto Ember page's equivalent blank lines. Scratch build artifacts and the
+  local gem install were removed after.
+
 ## 2026-08-18 — Structured batch data, take 7: handling in-progress batches
 
 - **What:** Every sample batch so far had a complete, finished record — Type, both dates, and a
