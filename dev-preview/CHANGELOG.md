@@ -8,6 +8,47 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-18 — Structured batch data, take 7: handling in-progress batches
+
+- **What:** Every sample batch so far had a complete, finished record — Type, both dates, and a
+  final ABV. Real batches don't start that way: looking at the live site, several real pages
+  (e.g. "TRM Grotto Ember") only have a Type and start date logged so far, with Bottling date and
+  ABV genuinely blank because the batch just hasn't gotten there yet. That's a gap in the
+  prototype's schema handling, not an edge case to ignore, so this cycle made missing fields a
+  first-class, deliberately-modeled case instead of an unhandled one:
+  - Added a fourth sample, [demo-batch-4](demo-batch-4/) ("TRM Sample Batch 4 (fake data, in
+    progress)", Pyment, only `start_date` and a single OG gravity reading set) — `bottling_date`,
+    `abv`, and `abv_percent` are simply absent from its front matter, the same way a real
+    in-progress batch's page would look, rather than being filled with a placeholder value.
+  - Updated the `batch-data.html` partial (all four sample batches' copies, since the pattern
+    isn't shared) so the Overview table renders `<em class="batch-in-progress">In progress</em>`
+    for `bottling_date`/`abv` when absent, instead of a silently blank table cell.
+  - Updated the [all-batches index](batches/) to match: the Bottling date/ABV columns show the
+    same "In progress" label instead of blank, and the sort comparator (`data-abv`/`data-bottling`
+    are empty strings for a missing value, which parsed as `NaN` before) now explicitly sorts rows
+    with no value to the *end* of the list in both ascending and descending order, rather than
+    comparing as `NaN` and leaving their position among sorted rows undefined/inconsistent.
+- **Why:** This is still FEEDBACK.md's step 3, "iterate on ergonomics" — a schema that only
+  demos the tidy, complete-record case isn't validated against how batches actually get created
+  and updated over weeks/months. Handling "no value yet" cleanly (a readable label, not a raw
+  blank cell; a sane, stable sort position) is exactly the kind of ergonomics gap that would bite
+  immediately if this pattern were ever applied to real batch pages, so it's worth surfacing and
+  fixing in the prototype now rather than after a real migration.
+- **Assets:** None — `.batch-in-progress` is a plain italic text style reusing the existing
+  `$blockquote-text-color` token, no new icon files.
+- **Scope:** Added `dev-preview/demo-batch-4/` (`index.md` + `_includes/batch-data.html`); edited
+  the other three sample batches' `_includes/batch-data.html` files, `dev-preview/batches/index.md`
+  (table cell markup, `data-abv`/`data-bottling` attributes, JS sort comparator, and intro text),
+  and `assets/css/dev-preview.scss` (added the `.batch-in-progress` rule) — all in scope.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors, correct `data-abv=""`/
+  `data-bottling=""` attributes on the in-progress row, and no `_includes/` or build artifact
+  leakage. Used headless Chromium (Playwright) to confirm: the in-progress row shows "In progress"
+  in both columns; sorting by ABV or Bottling date (ascending and descending) always places the
+  in-progress row last; filtering to its type ("Pyment") via the chip correctly isolates just that
+  row; and combining that filter with a non-matching search still triggers the existing empty-state
+  message. Scratch build/server artifacts and the local gem install were removed after.
+
 ## 2026-08-18 — Structured batch data, take 6: search box for the all-batches table
 
 - **What:** Added a text search input above the [all-batches table](batches/) that filters rows by

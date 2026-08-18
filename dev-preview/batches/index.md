@@ -23,7 +23,10 @@ Click a type chip below to narrow the table to just that type; click "All" to cl
 Type the search box to narrow further by name — search and the type filter compose (e.g. filter to
 Melomel, then search "ember" within just that type). Each batch's own page title (e.g. "TRM Grotto
 Ember", matching the real site's naming) is now the first column and the row's link, so a row
-identifies itself without needing to click through.
+identifies itself without needing to click through. A fourth sample batch,
+[demo-batch-4](../demo-batch-4/), is still **in progress** — no bottling date or ABV yet, just like
+several real batches on the live site — so those columns show "In progress" instead of a blank
+cell, and sort after every batch that has a real value.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
@@ -51,12 +54,12 @@ identifies itself without needing to click through.
   </thead>
   <tbody>
 {% for p in all_batches %}
-    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{{ p.batch.bottling_date | date: '%s' }}">
+    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{% if p.batch.bottling_date %}{{ p.batch.bottling_date | date: '%s' }}{% endif %}">
       <td><a href="{{ p.url | relative_url }}">{{ p.title }}</a></td>
       <td>{{ p.batch.type }}</td>
-      <td>{{ p.batch.abv }}</td>
+      <td>{% if p.batch.abv %}{{ p.batch.abv }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
       <td>{{ p.batch.start_date }}</td>
-      <td>{{ p.batch.bottling_date }}</td>
+      <td>{% if p.batch.bottling_date %}{{ p.batch.bottling_date }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
     </tr>
 {% endfor %}
   </tbody>
@@ -84,6 +87,13 @@ identifies itself without needing to click through.
         var a = rowA.getAttribute('data-' + key);
         var b = rowB.getAttribute('data-' + key);
         if (isNumber) {
+          // Missing values (in-progress batches: no ABV/bottling date yet) always sort
+          // last, in either sort direction, instead of comparing as NaN.
+          var aMissing = a === '';
+          var bMissing = b === '';
+          if (aMissing && bMissing) return 0;
+          if (aMissing) return 1;
+          if (bMissing) return -1;
           a = parseFloat(a);
           b = parseFloat(b);
         }

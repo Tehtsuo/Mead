@@ -5,8 +5,8 @@
   <tbody>
     <tr><td><strong>Type</strong></td><td>{{ page.batch.type }}</td></tr>
     <tr><td><strong>Start date</strong></td><td>{{ page.batch.start_date }}</td></tr>
-    <tr><td><strong>Bottling date</strong></td><td>{{ page.batch.bottling_date }}</td></tr>
-    <tr><td><strong>ABV</strong></td><td>{{ page.batch.abv }}</td></tr>
+    <tr><td><strong>Bottling date</strong></td><td>{% if page.batch.bottling_date %}{{ page.batch.bottling_date }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td></tr>
+    <tr><td><strong>ABV</strong></td><td>{% if page.batch.abv %}{{ page.batch.abv }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td></tr>
   </tbody>
 </table>
 
