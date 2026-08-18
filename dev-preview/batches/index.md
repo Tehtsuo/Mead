@@ -20,6 +20,8 @@ Click a column header to sort by it; click again to reverse. This replaces the p
 two separate pre-sorted tables (by type, by ABV) with one table sortable by any column — the
 server still renders it pre-sorted by type, so the page is still useful with JavaScript off.
 Click a type chip below to narrow the table to just that type; click "All" to clear the filter.
+Each batch's own page title (e.g. "TRM Grotto Ember", matching the real site's naming) is now the
+first column and the row's link, so a row identifies itself without needing to click through.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
@@ -34,21 +36,21 @@ Click a type chip below to narrow the table to just that type; click "All" to cl
 <table class="sortable-table" id="batches-table">
   <thead>
     <tr>
+      <th scope="col" aria-sort="none"><button type="button" data-sort-key="name">Name</button></th>
       <th scope="col" aria-sort="ascending"><button type="button" data-sort-key="type">Type</button></th>
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="abv" data-sort-type="number">ABV</button></th>
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="start" data-sort-type="number">Start date</button></th>
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="bottling" data-sort-type="number">Bottling date</button></th>
-      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
 {% for p in all_batches %}
-    <tr data-type="{{ p.batch.type | downcase }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{{ p.batch.bottling_date | date: '%s' }}">
+    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{{ p.batch.bottling_date | date: '%s' }}">
+      <td><a href="{{ p.url | relative_url }}">{{ p.title }}</a></td>
       <td>{{ p.batch.type }}</td>
       <td>{{ p.batch.abv }}</td>
       <td>{{ p.batch.start_date }}</td>
       <td>{{ p.batch.bottling_date }}</td>
-      <td><a href="{{ p.url | relative_url }}">View</a></td>
     </tr>
 {% endfor %}
   </tbody>

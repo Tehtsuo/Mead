@@ -191,6 +191,16 @@ body {
 .main-content tr td:first-child {
   background: linear-gradient(180deg, #C9A46A, #A9793F);
   color: #FFF3DC;
+
+  a {
+    color: #FFF3DC;
+    font-weight: 700;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+    }
+  }
 }
 
 // ---- Sortable table headers (click-to-sort, dev-preview/batches/) ----

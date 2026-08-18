@@ -8,6 +8,36 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-18 — Structured batch data, take 5: batch name as its own column
+
+- **What:** The [all-batches table](batches/) previously had no way to tell rows apart except by
+  Type/ABV/dates — the only identifier was a generic "View" link at the end of each row. Added a
+  new, sortable "Name" column (first in the table) using each batch page's own `page.title`
+  (already set by every batch page, real and demo — no new front-matter field needed), and made it
+  the row's link, dropping the redundant trailing "View" column. The column reuses the table's
+  existing teak/cream "label" styling (`.main-content tr td:first-child`) that already highlighted
+  the leftmost cell; added an `a` override in that same rule so the link renders in the existing
+  cream color instead of the theme's default teal link color, which had weak contrast against the
+  teak-gradient background.
+- **Why:** This is FEEDBACK.md's step 3, "iterate on ergonomics." A table you can't identify rows
+  in without clicking through isn't very ergonomic — once there are more than a couple of batches,
+  "which row is which" matters as much as sorting/filtering. Real batch pages already name
+  themselves via `title` (e.g. "TRM Grotto Ember" in `2026/TRM Grotto Ember/index.md`), so this
+  also demonstrates the structured-data payoff needs no new field for something this basic — it's
+  already there, just unused by the index page until now.
+- **Assets:** None — reused the existing teak/cream color pair, no new icon files.
+- **Scope:** Edited `dev-preview/batches/index.md` (Name column markup, `data-name` sort
+  attribute, dropped the "View" column) and `assets/css/dev-preview.scss` (added the `a` color
+  override inside the existing `tr td:first-child` rule) — both in scope.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors, correct `data-name` values,
+  and no `_includes/` or build artifact leakage. Used headless Chromium (Playwright) to click
+  through: default load still shows rows pre-sorted by type; clicking "Name" sorts alphabetically
+  ascending/descending; each name links to its own batch page; the type filter chips still work
+  against the reordered rows; and the link color renders as the intended cream against the teak
+  background (confirmed via computed style and a screenshot). Scratch build/server artifacts were
+  removed after.
+
 ## 2026-08-17 — Structured batch data, take 4: click-to-filter by type
 
 - **What:** Added a row of type filter chips ("All", "Melomel", "Metheglin", "Traditional", each
