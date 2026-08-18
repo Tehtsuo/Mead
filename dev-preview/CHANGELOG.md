@@ -8,6 +8,41 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-18 — Structured batch data, take 6: search box for the all-batches table
+
+- **What:** Added a text search input above the [all-batches table](batches/) that filters rows by
+  name as you type, composing with the existing type filter chips rather than replacing them (e.g.
+  filter to "Melomel", then search "ember" to narrow further within just that type). Reworked the
+  chip click-handler and the new search input to share one `applyFilters()` function that checks
+  both conditions (`data-type` match AND `data-name` substring match) before showing/hiding each
+  row, instead of the chip handler directly setting `row.style.display` on its own. Also added a
+  "No batches match your search and filter." message that appears only when a search/filter
+  combination leaves zero visible rows, so an empty result doesn't look like a broken/loading table.
+  Grouped the new `<input type="search">` and the existing filter chips under one
+  `.batches-toolbar` flex row in `assets/css/dev-preview.scss`, styled to match the chips'
+  teak/cream/sand palette.
+- **Why:** This is FEEDBACK.md's step 3, "iterate on ergonomics," and a direct extension of take 4
+  (click-to-filter by type). Type filtering narrows by category, but once there are more batches
+  than fit on screen, finding one specific batch by name is a different, equally common need that
+  chips alone don't solve — a quick substring search is the natural complement, and composing it
+  with the existing filter (rather than being a separate, exclusive mode) keeps both tools usable
+  together the way real users would want ("show me the Melomels named X").
+- **Assets:** None — the search input is a plain styled `<input>`, no new icon files.
+- **Scope:** Edited `dev-preview/batches/index.md` (search input markup, empty-state message
+  markup, and the `applyFilters()` JS rework) and `assets/css/dev-preview.scss` (added
+  `.batches-toolbar`/`.batch-search`/`.batches-empty` rules, wrapped inside the sanctioned
+  stylesheet anchor file) — both in scope.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors and no `_includes/` or build
+  artifact leakage. Used headless Chromium (Playwright) to click through: typing a search query
+  hides non-matching rows and leaves matching ones visible; searching a query that matches nothing
+  shows the empty-state message and hides it again once cleared; combining a type-chip filter with
+  a search query correctly ANDs both conditions (narrowing to Melomel then searching still shows
+  only matching Melomel rows, and a further non-matching search under that filter also triggers the
+  empty message); clearing the search and resetting to "All" restores every row; and column sorting
+  still works correctly with the search box present and non-empty. Scratch build/server artifacts
+  were removed after.
+
 ## 2026-08-18 — Structured batch data, take 5: batch name as its own column
 
 - **What:** The [all-batches table](batches/) previously had no way to tell rows apart except by

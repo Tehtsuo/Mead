@@ -20,17 +20,23 @@ Click a column header to sort by it; click again to reverse. This replaces the p
 two separate pre-sorted tables (by type, by ABV) with one table sortable by any column — the
 server still renders it pre-sorted by type, so the page is still useful with JavaScript off.
 Click a type chip below to narrow the table to just that type; click "All" to clear the filter.
-Each batch's own page title (e.g. "TRM Grotto Ember", matching the real site's naming) is now the
-first column and the row's link, so a row identifies itself without needing to click through.
+Type the search box to narrow further by name — search and the type filter compose (e.g. filter to
+Melomel, then search "ember" within just that type). Each batch's own page title (e.g. "TRM Grotto
+Ember", matching the real site's naming) is now the first column and the row's link, so a row
+identifies itself without needing to click through.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
 
-<div class="filter-chips" role="group" aria-label="Filter batches by type">
-  <button type="button" class="filter-chip is-active" data-filter-type="all" aria-pressed="true">All ({{ all_batches.size }})</button>
+<div class="batches-toolbar">
+  <input type="search" id="batch-search" class="batch-search" placeholder="Search batches by name…" aria-label="Search batches by name">
+
+  <div class="filter-chips" role="group" aria-label="Filter batches by type">
+    <button type="button" class="filter-chip is-active" data-filter-type="all" aria-pressed="true">All ({{ all_batches.size }})</button>
 {% for group in batch_type_groups %}
-  <button type="button" class="filter-chip" data-filter-type="{{ group.name | downcase }}" aria-pressed="false">{{ group.name }} ({{ group.items.size }})</button>
+    <button type="button" class="filter-chip" data-filter-type="{{ group.name | downcase }}" aria-pressed="false">{{ group.name }} ({{ group.items.size }})</button>
 {% endfor %}
+  </div>
 </div>
 
 <table class="sortable-table" id="batches-table">
@@ -55,6 +61,8 @@ first column and the row's link, so a row identifies itself without needing to c
 {% endfor %}
   </tbody>
 </table>
+
+<p id="batches-empty-msg" class="batches-empty" hidden>No batches match your search and filter.</p>
 
 <script>
 (function () {
@@ -93,9 +101,29 @@ first column and the row's link, so a row identifies itself without needing to c
   });
 
   var filterChips = document.querySelectorAll('.filter-chip[data-filter-type]');
+  var searchInput = document.getElementById('batch-search');
+  var emptyMsg = document.getElementById('batches-empty-msg');
+  var activeType = 'all';
+
+  function applyFilters() {
+    var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+    var visibleCount = 0;
+
+    var rows = tbody.querySelectorAll('tr');
+    rows.forEach(function (row) {
+      var matchesType = activeType === 'all' || row.getAttribute('data-type') === activeType;
+      var matchesSearch = !query || row.getAttribute('data-name').indexOf(query) !== -1;
+      var show = matchesType && matchesSearch;
+      row.style.display = show ? '' : 'none';
+      if (show) visibleCount++;
+    });
+
+    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
+  }
+
   filterChips.forEach(function (chip) {
     chip.addEventListener('click', function () {
-      var filterType = chip.getAttribute('data-filter-type');
+      activeType = chip.getAttribute('data-filter-type');
 
       filterChips.forEach(function (c) {
         c.classList.remove('is-active');
@@ -104,12 +132,12 @@ first column and the row's link, so a row identifies itself without needing to c
       chip.classList.add('is-active');
       chip.setAttribute('aria-pressed', 'true');
 
-      var rows = tbody.querySelectorAll('tr');
-      rows.forEach(function (row) {
-        var show = filterType === 'all' || row.getAttribute('data-type') === filterType;
-        row.style.display = show ? '' : 'none';
-      });
+      applyFilters();
     });
   });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', applyFilters);
+  }
 })();
 </script>

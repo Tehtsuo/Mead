@@ -240,6 +240,45 @@ body {
   opacity: 1;
 }
 
+// ---- Batches toolbar: search box + filter chips (dev-preview/batches/) ----
+.batches-toolbar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 1rem 0 1.25rem;
+}
+
+.batch-search {
+  flex: 1 1 14rem;
+  max-width: 20rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid $border-color;
+  border-radius: 999px;
+  background: #FFF3DC;
+  color: $body-text-color;
+  font: inherit;
+  font-size: 0.9rem;
+
+  &::placeholder {
+    color: $blockquote-text-color;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $body-link-color;
+    outline-offset: 1px;
+  }
+}
+
+.batches-empty {
+  position: relative;
+  z-index: 1;
+  color: $blockquote-text-color;
+  font-style: italic;
+}
+
 // ---- Filter chips (click-to-filter, dev-preview/batches/) ----
 .filter-chips {
   position: relative;
@@ -247,7 +286,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin: 1rem 0 1.25rem;
+  margin: 0;
 }
 
 .filter-chip {
