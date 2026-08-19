@@ -14,4 +14,5 @@ description: 2026 Batches
 - [TRM Mirage Glow](TRM%20Mirage%20Glow/)
 - [TRM Jungle Cellar](TRM%20Jungle%20Cellar/)
 - [TRM Isle Amber](TRM%20Isle%20Amber/)
+- [TRM Windward Hive](TRM%20Windward%20Hive/)
 <!-- BATCH_LIST_END -->
