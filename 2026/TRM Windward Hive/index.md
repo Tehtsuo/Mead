@@ -9,8 +9,8 @@ description: TRM Windward Hive
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Spiced Metheglin |
+| **Start date** | August 19, 2026 |
 | **Bottling date** | |
 | **ABV** | |
 | **Fermentrack** | |
@@ -21,11 +21,11 @@ description: TRM Windward Hive
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: 1.59kg Kirkland Wildflower
+- Water: 4900 mL Fill
+- Yeast: Lalvin 71B
+- Nutrient: Fermaid-o
+- Fruit / Spice: 1 Cinnamon stick, 2 cloves, 8 allspice berries, 30 raisins
 
 ## Gravity & Fermentation Log
 
