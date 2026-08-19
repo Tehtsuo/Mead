@@ -66,6 +66,19 @@ gravity_log:
 
 ## Adding a new sample batch
 
+**Option A — scaffold script.** Run
+`python3 dev-preview/_scripts/new_sample_batch.py --name "TRM Sample Batch N" --type Melomel
+--start-date "August 19, 2026"` (add `--bottling-date`/`--abv`/`--abv-percent` for a finished
+batch instead of an in-progress one — see `--help` for the full flag list). It creates the new
+folder with a correct `batch:` block and a byte-identical copy of `_includes/batch-data.html`
+for you; `recipe:`/`gravity_log:` are left as empty-detail placeholder lists (variable-length,
+so not worth a flag each) for you to fill in by hand afterwards, same as step 2 below. The script
+lives in a leading-underscore directory so Jekyll doesn't publish it as a static file on the
+preview site, the same reason `_includes/` is nested per batch (see the
+[changelog](CHANGELOG.html)'s take-1 scope note).
+
+**Option B — copy by hand:**
+
 1. Copy an existing sample batch's whole folder (e.g. `demo-batch-4/`) to a new
    `dev-preview/<your-batch-name>/` directory.
 2. In the new `index.md`, update `title`/`description` and the `batch:`/`recipe:`/`gravity_log:`
@@ -75,6 +88,7 @@ gravity_log:
    its own copy rather than one shared partial).
 4. Write the free-form "Brewing Notes" section below the `{% raw %}{% include_relative
    _includes/batch-data.html %}{% endraw %}` line as normal Markdown, same as any other page.
-5. That's it — no other page needs editing. The [all-batches index](batches/) auto-discovers any
-   page under `dev-preview/` with a `batch:` field via `site.pages`, so the new batch appears
-   there (and is sortable/filterable/searchable) without any manual list to update.
+
+Either way, that's it — no other page needs editing. The [all-batches index](batches/)
+auto-discovers any page under `dev-preview/` with a `batch:` field via `site.pages`, so the new
+batch appears there (and is sortable/filterable/searchable) without any manual list to update.

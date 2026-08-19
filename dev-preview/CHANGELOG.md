@@ -8,6 +8,54 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-19 — Structured batch data, take 10: scaffold script for new sample batches
+
+- **What:** Added [`dev-preview/_scripts/new_sample_batch.py`](https://github.com/Tehtsuo/Mead/blob/main/dev-preview/_scripts/new_sample_batch.py),
+  a small CLI script that scaffolds a new sample batch folder — front matter (`batch:` fully
+  filled in from flags, `recipe:`/`gravity_log:` seeded as empty-detail placeholder lists) plus a
+  byte-identical copy of `_includes/batch-data.html` — instead of copy-pasting an existing batch
+  folder by hand. It takes `--name`/`--type`/`--start-date` (required) and
+  `--bottling-date`/`--abv`/`--abv-percent` (optional, for a finished vs. in-progress batch,
+  enforcing the same "abv requires a bottling date" invariant the schema already documents),
+  slugifies the name into a folder, and refuses to overwrite an existing folder. Lives in a
+  leading-underscore directory (`dev-preview/_scripts/`, not `dev-preview/scripts/`) so Jekyll
+  doesn't publish the `.py` file as a static asset on the preview site — confirmed by a full site
+  build before and after the rename (the un-prefixed name leaked into `_site/dev-preview/scripts/`;
+  the underscore-prefixed one didn't), the same reasoning take 1 used for nesting `_includes/`
+  inside each batch folder rather than a shared root one. Updated
+  [`dev-preview/schema.md`](schema.html)'s "Adding a new sample batch" section to present the
+  script as Option A (fast path) alongside the existing manual copy steps as Option B.
+- **Why:** FEEDBACK.md's step 3 explicitly suggests this: "iterate on ergonomics... or
+  scriptable the way `scripts/new_batch.py` already scaffolds new batches." Nine prior takes built
+  the schema, the rendering partial, and the pages that consume it, but every one of them still
+  required manually copying a folder and hand-editing YAML to add a new sample batch — the exact
+  kind of repetitive setup `scripts/new_batch.py` already automates for real batches. This mirrors
+  that pattern for the prototype's sample batches specifically (real batches and `scripts/**` are
+  untouched, per the sandbox's file scope and FEEDBACK.md's explicit "do not migrate real batch
+  data" instruction) — `recipe:`/`gravity_log:` are deliberately left as manual follow-up since
+  they're variable-length lists that don't map cleanly onto a fixed set of CLI flags the way the
+  three-or-four Overview fields do.
+- **Assets:** None — a plain Python script, no new icon files.
+- **Scope:** Added `dev-preview/_scripts/new_sample_batch.py`; edited `dev-preview/schema.md`
+  (added the "Option A — scaffold script" paragraph, restructured the existing steps as
+  "Option B") — both under `dev-preview/**`. No CSS or partial changes.
+- **Verified:** Ran the script directly (both in a scratch copy of `dev-preview/` and, briefly,
+  for a real build check, uncommitted inside the repo itself before deleting it) to confirm: an
+  in-progress batch (no `--bottling-date`) scaffolds correctly; a finished batch with
+  `--bottling-date`/`--abv`/`--abv-percent` scaffolds correctly; passing `--abv` without
+  `--bottling-date` is rejected with a clear error; running twice for the same name is rejected
+  ("already exists") rather than overwriting; and the generated `_includes/batch-data.html` is
+  byte-identical (`diff` confirmed) to the canonical copy in `demo-batch-4/`. Reinstalled a local,
+  uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the full site to a scratch directory
+  with a scaffolded test batch present, confirmed: the batch page renders its Overview table
+  correctly from the generated front matter (including the "In progress" case), it appears
+  automatically on the all-batches index with no other page edited, `dev-preview/_scripts/` does
+  **not** leak into the built `_site/` output (verified by first testing with the un-prefixed
+  `dev-preview/scripts/` name, seeing it leak, then confirming the underscore-prefixed rename
+  fixes it), and the updated `schema.md` section renders correctly. The test batch folder, scratch
+  build artifacts, and the local gem install were all removed after — the repo's working tree has
+  only the two files listed under Scope.
+
 ## 2026-08-19 — Structured batch data, take 9: batch data schema reference page
 
 - **What:** Added [`dev-preview/schema.md`](schema.html), a reference page documenting the
