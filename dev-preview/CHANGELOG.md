@@ -8,6 +8,44 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-19 — Structured batch data, take 12: JSON export of the batch collection
+
+- **What:** Added [`dev-preview/batches/data.json`](batches/data.json), a Jekyll page (front
+  matter `layout: null`, no HTML wrapper) that renders the same `all_batches` collection the
+  index table/stat tiles already use as a plain JSON array — one object per batch with `name`,
+  `url`, and the three structured front-matter blocks (`batch`, `recipe`, `gravity_log`), each run
+  through Jekyll's `jsonify` filter so nesting/escaping is handled for free rather than hand-built
+  with string concatenation. Linked it from the [all-batches index](batches/) two ways: a sentence
+  in the intro text, and a small "⬇ Export as JSON" pill (`.export-link` in
+  `assets/css/dev-preview.scss`) pinned to the right end of the existing search/filter-chip
+  toolbar row, with a `download="batches.json"` attribute so clicking it saves the file instead of
+  just navigating to it.
+- **Why:** FEEDBACK.md's own opening rationale for the whole structured-data direction names
+  three things hand-typed Markdown can't do: "no way to compute stats across batches, build a
+  sortable/filterable batch index, or feed the data anywhere else." Take 11 covered the first
+  ("compute stats"); ten takes before that covered the second (the sortable/filterable/searchable
+  index). This is the only one of the three still undemonstrated — a JSON export is the simplest,
+  most direct way to show the data can leave the page entirely (script access, a spreadsheet
+  import, a future non-Jekyll tool) instead of being trapped in either a Markdown table or an
+  HTML page's DOM.
+- **Assets:** None — plain Liquid/JSON output and a CSS pill reusing the existing chip/search
+  palette tokens, no new icon files.
+- **Scope:** Added `dev-preview/batches/data.json`; edited `dev-preview/batches/index.md` (intro
+  sentence + toolbar export link) and `assets/css/dev-preview.scss` (added `.export-link`) — all
+  in scope. No other files touched.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors and no `_includes/`/
+  `_scripts/` leakage. Validated `data.json`'s output directly with `python3 -m json.tool` (parses
+  cleanly) and by eye: all four sample batches present, the in-progress batch's `batch` object
+  correctly omits `bottling_date`/`abv`/`abv_percent` entirely (matching the schema's "omit, don't
+  placeholder" rule) rather than emitting `null`/empty-string placeholders, and `recipe`/
+  `gravity_log` round-trip as proper arrays of objects. Served the scratch build locally and
+  confirmed the file responds `200` with `Content-Type: application/json`. Used headless Chromium
+  (Playwright) to load the built index page and confirm the toolbar's export link renders with the
+  correct href/label at the intended position. Scratch build/server artifacts, the local gem
+  install, and the temporary Playwright pip package used only for this verification were all
+  removed after.
+
 ## 2026-08-19 — Structured batch data, take 11: quick-stats tiles on the all-batches index
 
 - **What:** Added a row of four stat tiles ("Total batches", "Finished", "In progress",

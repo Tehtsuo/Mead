@@ -1,0 +1,15 @@
+---
+layout: null
+---
+{% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" -%}
+[
+{%- for p in all_batches %}
+  {
+    "name": {{ p.title | jsonify }},
+    "url": {{ p.url | relative_url | jsonify }},
+    "batch": {{ p.batch | jsonify }},
+    "recipe": {{ p.recipe | jsonify }},
+    "gravity_log": {{ p.gravity_log | jsonify }}
+  }{% unless forloop.last %},{% endunless %}
+{%- endfor %}
+]

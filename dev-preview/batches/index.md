@@ -28,9 +28,13 @@ identifies itself without needing to click through. A fourth sample batch,
 several real batches on the live site — so those columns show "In progress" instead of a blank
 cell, and sort after every batch that has a real value.
 
-The stat tiles below are the other half of FEEDBACK.md's original rationale for this whole
+The stat tiles below cover another third of FEEDBACK.md's original rationale for this whole
 direction — "no way to compute stats across batches" — rendered entirely from the same
-`all_batches` collection the table already uses, no separate data source.
+`all_batches` collection the table already uses, no separate data source. The
+**[Export as JSON]({{ "/dev-preview/batches/data.json" | relative_url }})** link covers the last
+third — "feed the data anywhere else" — by publishing the same collection as a small `data.json`
+file, built at site-generation time from each batch's own front matter, no separate export step to
+keep in sync.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
@@ -68,6 +72,8 @@ direction — "no way to compute stats across batches" — rendered entirely fro
     <button type="button" class="filter-chip" data-filter-type="{{ group.name | downcase }}" aria-pressed="false">{{ group.name }} ({{ group.items.size }})</button>
 {% endfor %}
   </div>
+
+  <a class="export-link" href="{{ "/dev-preview/batches/data.json" | relative_url }}" download="batches.json">⬇ Export as JSON</a>
 </div>
 
 <table class="sortable-table" id="batches-table">

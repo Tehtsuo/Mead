@@ -360,6 +360,29 @@ body {
   }
 }
 
+// ---- Export-as-JSON link (dev-preview/batches/) ----
+.export-link {
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  padding: 0.35rem 0.9rem;
+  border: 1px solid $border-color;
+  border-radius: 999px;
+  background: #FFF3DC;
+  color: $section-headings-color;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform 0.15s, box-shadow 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: 0 2px 6px rgba(74, 50, 34, 0.15);
+    transform: translateY(-1px);
+  }
+}
+
 // ---- Lists: flower bullets by default, card treatment for nav-only
 //      lists (batch listings on the home/year pages) ----
 .main-content ul {
