@@ -240,6 +240,44 @@ body {
   opacity: 1;
 }
 
+// ---- Batch stats: total/finished/in-progress/avg-ABV tiles (dev-preview/batches/) ----
+.batch-stats {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+.batch-stat {
+  flex: 1 1 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid $border-color;
+  background: linear-gradient(180deg, #FFF3DC, #FBE4C0);
+  text-align: center;
+}
+
+.batch-stat-value {
+  font-family: "Super Funky", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1.6rem;
+  color: $section-headings-color;
+  line-height: 1.2;
+}
+
+.batch-stat-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: $blockquote-text-color;
+}
+
 // ---- Batches toolbar: search box + filter chips (dev-preview/batches/) ----
 .batches-toolbar {
   position: relative;

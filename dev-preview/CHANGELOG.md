@@ -8,6 +8,48 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-19 — Structured batch data, take 11: quick-stats tiles on the all-batches index
+
+- **What:** Added a row of four stat tiles ("Total batches", "Finished", "In progress",
+  "Avg. ABV (finished)") above the toolbar on the [all-batches index](batches/), computed
+  entirely from the same `all_batches` Liquid collection the table already builds — no new data
+  source, no hand-typed numbers. `finished_batches` is `all_batches` filtered to pages with an
+  `abv_percent` (the same "does this batch have a real value yet" check the Overview
+  table/index already use for "In progress"); the average ABV sums `abv_percent` across those via
+  a plain Liquid `for` loop with a running `plus` total (not the `sum` filter — confirmed against
+  the actual installed `liquid` gem, 4.0.4, that GitHub Pages' Jekyll pins, which predates
+  `sum`'s addition in Liquid 5.4), then `divided_by` the count and `round: 1`, with an em dash
+  fallback if there are zero finished batches yet. Styled as small rounded tiles
+  (`.batch-stats`/`.batch-stat*` in `assets/css/dev-preview.scss`) reusing the existing sand/cream
+  gradient and rust/teak palette tokens, matching the filter chips and search box already on the
+  page. The tiles summarize the *whole* collection regardless of the active type filter/search —
+  confirmed deliberately, not a bug: they're a stats overview, not a filtered subtotal.
+- **Why:** FEEDBACK.md's own opening rationale for the whole structured-data direction names two
+  payoffs data trapped in hand-typed Markdown can't deliver: "no way to compute stats across
+  batches, build a sortable/filterable batch index, or feed the data anywhere else." Ten prior
+  takes fully delivered the second half (the sortable/filterable/searchable index) but nothing yet
+  demonstrated the first half — computing a stat *across* batches, not just listing them. A small
+  summary row is the natural, minimal way to show that off without duplicating what the type
+  filter chips already do (per-type counts) or reintroducing the gravity/ABV chart FEEDBACK.md
+  explicitly flagged as not wanted.
+- **Assets:** None — plain HTML/CSS tiles reusing existing palette tokens and the existing
+  "Super Funky" font-face, no new icon files.
+- **Scope:** Edited `dev-preview/batches/index.md` (new Liquid assigns + `.batch-stats` markup,
+  above the existing toolbar) and `assets/css/dev-preview.scss` (added `.batch-stats`/
+  `.batch-stat`/`.batch-stat-value`/`.batch-stat-label` rules) — both in scope. No other files
+  touched.
+- **Verified:** Installed a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair (confirmed
+  the pinned `liquid` version is 4.0.4, informing the `sum`-filter-avoidance decision above), built
+  the full site to a scratch directory, confirmed no Liquid/build errors and no `_includes/`/
+  `_scripts/` leakage. Checked the rendered stat values directly: 4 total, 3 finished, 1 in
+  progress, 12.8% average ABV (the correct mean of 13/11/14.5 across the three finished sample
+  batches — demo-batch-4 excluded as in-progress). Used headless Chromium (Playwright) to confirm
+  the tiles render correctly against the live palette (screenshot), and that they stay
+  visually/functionally independent of the existing sort/filter/search controls — clicking a type
+  chip and searching still correctly narrows the *table* while the stat tiles keep showing the
+  whole-collection totals, and the tiles don't interfere with sort/filter/search still working
+  together as before. Scratch build/server artifacts and the local gem install were removed after.
+
 ## 2026-08-19 — Structured batch data, take 10: scaffold script for new sample batches
 
 - **What:** Added [`dev-preview/_scripts/new_sample_batch.py`](https://github.com/Tehtsuo/Mead/blob/main/dev-preview/_scripts/new_sample_batch.py),

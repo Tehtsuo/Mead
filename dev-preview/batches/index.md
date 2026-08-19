@@ -28,8 +28,36 @@ identifies itself without needing to click through. A fourth sample batch,
 several real batches on the live site — so those columns show "In progress" instead of a blank
 cell, and sort after every batch that has a real value.
 
+The stat tiles below are the other half of FEEDBACK.md's original rationale for this whole
+direction — "no way to compute stats across batches" — rendered entirely from the same
+`all_batches` collection the table already uses, no separate data source.
+
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
+{% assign finished_batches = all_batches | where_exp: "p", "p.batch.abv_percent" %}
+{% assign in_progress_count = all_batches.size | minus: finished_batches.size %}
+{% assign abv_total = 0 %}
+{% for p in finished_batches %}{% assign abv_total = abv_total | plus: p.batch.abv_percent %}{% endfor %}
+{% if finished_batches.size > 0 %}{% assign avg_abv = abv_total | plus: 0.0 | divided_by: finished_batches.size | round: 1 %}{% endif %}
+
+<div class="batch-stats">
+  <div class="batch-stat">
+    <span class="batch-stat-value">{{ all_batches.size }}</span>
+    <span class="batch-stat-label">Total batches</span>
+  </div>
+  <div class="batch-stat">
+    <span class="batch-stat-value">{{ finished_batches.size }}</span>
+    <span class="batch-stat-label">Finished</span>
+  </div>
+  <div class="batch-stat">
+    <span class="batch-stat-value">{{ in_progress_count }}</span>
+    <span class="batch-stat-label">In progress</span>
+  </div>
+  <div class="batch-stat">
+    <span class="batch-stat-value">{% if avg_abv %}{{ avg_abv }}%{% else %}—{% endif %}</span>
+    <span class="batch-stat-label">Avg. ABV (finished)</span>
+  </div>
+</div>
 
 <div class="batches-toolbar">
   <input type="search" id="batch-search" class="batch-search" placeholder="Search batches by name…" aria-label="Search batches by name">
