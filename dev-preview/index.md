@@ -14,5 +14,7 @@ proposals for review. Nothing outside this `dev-preview/` folder (plus its two a
 - [Demo batch page](demo-batch/) — a sample page (fake data) the automation uses as a canvas
 - [All batches (demo)](batches/) — a prototype index page, sortable by type/ABV, fed by the
   structured data on the sample batch pages
+- [Batch data schema](schema.html) — reference docs for the `batch`/`recipe`/`gravity_log` front
+  matter fields, and steps for adding another sample batch
 
 To apply something you like to the real site, just tell Claude which change/run to promote.

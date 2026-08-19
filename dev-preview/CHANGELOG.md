@@ -8,6 +8,32 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-19 — Structured batch data, take 9: batch data schema reference page
+
+- **What:** Added [`dev-preview/schema.md`](schema.html), a reference page documenting the
+  `batch:`/`recipe:`/`gravity_log:` front-matter shape used by every sample batch — what each
+  field is, its type, and whether it's required or safe to omit (e.g. `bottling_date`/`abv`/
+  `abv_percent` while a batch is still in progress) — plus a numbered "Adding a new sample batch"
+  walkthrough (copy an existing batch folder, edit front matter, leave `_includes/batch-data.html`
+  untouched, no other page needs editing since the all-batches index auto-discovers via
+  `site.pages`). Linked it from `dev-preview/index.md`'s bullet list alongside the other prototype
+  pages.
+- **Why:** FEEDBACK.md's step 3 asks to "iterate on ergonomics — what would make this pleasant to
+  maintain by hand." Eight prior takes built the schema and the pages that consume it, but the
+  shape itself was only ever discoverable by reading front matter across four different pages and
+  cross-referencing changelog entries for the "why" (e.g. why each batch folder needs its own
+  copy of the partial). That's exactly the kind of friction "pleasant to maintain by hand" is
+  meant to catch — a single reference page removes it, and doubles as the spec a human would want
+  before deciding whether to migrate real batch pages to this pattern.
+- **Assets:** None — plain Markdown (a table and two fenced YAML snippets), no new icon files.
+- **Scope:** Added `dev-preview/schema.md`; edited `dev-preview/index.md` (added one bullet
+  linking the new page) — both under `dev-preview/**`. No CSS or partial changes.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair, built the
+  full site to a scratch directory, confirmed no Liquid/build errors, `dev-preview/schema.html`
+  renders (table and YAML code blocks present, no `_includes/` leakage), and the new index.md
+  bullet links to it correctly. Scratch build artifacts and the local gem install (including
+  transitive dependency gems) were removed after.
+
 ## 2026-08-18 — Structured batch data, take 8: recipe items as label/detail pairs
 
 - **What:** Recipe items in front matter were still a list of one hand-formatted string per line
