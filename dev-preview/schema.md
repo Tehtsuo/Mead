@@ -49,6 +49,11 @@ recipe:
   ingredient that's a known part of the recipe but not yet decided/measured — it renders as just
   `Label:` with nothing after the colon, matching how a real in-progress batch page looks.
 
+Every `label`/`detail` pair also feeds the [all-batches index](batches/)'s search box, which
+matches against ingredient text as well as batch name — e.g. searching "cinnamon" finds every
+batch whose recipe mentions it, across all batches at once, which a hand-typed recipe list
+buried in each page's own Markdown could never do.
+
 ### `gravity_log:` — Gravity & Fermentation Log
 
 A list of readings, each a `date`/`reading` pair:

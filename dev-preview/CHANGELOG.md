@@ -8,6 +8,48 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-20 — Structured batch data, take 13: ingredient search on the all-batches index
+
+- **What:** Extended the [all-batches index](batches/)'s existing name-search box (take 6) to also
+  match against recipe ingredients — searching "cinnamon" or "wildflower" now finds any batch whose
+  `recipe:` `label`/`detail` pairs mention it, composing with the existing type-filter chips and
+  name search exactly as before (same `applyFilters()` function, one more OR'd condition). Each row
+  gets a new `data-ingredients` attribute built by a small Liquid loop that concatenates every
+  recipe item's `label` and `detail` into one lowercased string per batch; the JS `matchesSearch`
+  check now tests the search query against `data-name` *or* `data-ingredients`. Updated the search
+  input's placeholder/`aria-label` ("Search by name or ingredient…") and the page's intro text to
+  describe the new behavior, and added a paragraph to [`schema.md`](schema.html)'s Recipe section
+  documenting that `label`/`detail` now feeds this search.
+- **Why:** Take 8 split each recipe entry into structured `label`/`detail` fields specifically so
+  ingredient data would be "queryable, not just display text sitting in YAML instead of Markdown" —
+  but nothing since then actually queried it across batches: every later take (schema page, scaffold
+  script, stat tiles, JSON export) built on the `batch:` fields (type, ABV, dates) or exposed
+  `recipe:` verbatim in the JSON export, never searched/filtered *by* it. Letting the search box
+  match ingredients as well as batch names is the natural, minimal way to demonstrate that payoff —
+  "which batches use cinnamon" is exactly the kind of cross-batch question a hand-typed recipe list
+  buried in each page's own Markdown could never answer, and it reuses the existing search UI rather
+  than adding a new control.
+- **Assets:** None — reused the existing search input and `.batches-toolbar`/`.batch-search` CSS,
+  no new icon files or style rules.
+- **Scope:** Edited `dev-preview/batches/index.md` (intro text, placeholder/aria-label,
+  `data-ingredients` attribute + Liquid loop, `matchesSearch` JS) and `dev-preview/schema.md` (one
+  documentation paragraph) — both under `dev-preview/**`, in scope. No CSS changes, no other files
+  touched.
+- **Verified:** Installed a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair (confirmed
+  `liquid` pins to 4.0.4, same as prior takes), built the full site to a scratch directory,
+  confirmed no Liquid/build errors, correct `data-ingredients` values for all four sample batches
+  (spot-checked demo-batch's row includes "cinnamon, cloves"), and no `_includes/`/`_scripts/`
+  leakage into `_site/`. Installed a local, uncommitted `playwright` pip package (browsers were
+  already present in this environment) and used headless Chromium against the served scratch build
+  to click through: searching "cinnamon" (present only in an ingredient, not any batch name) shows
+  exactly the one matching batch; searching "raspberries" (a recipe `detail`) and "nutrient" (a
+  `label` common to all four batches) work the same way; a query matching neither name nor
+  ingredient shows the existing empty-state message; composing a type-chip filter with an ingredient
+  search still ANDs both conditions correctly (Metheglin + "cinnamon" → demo-batch only; Pyment +
+  "grape" → demo-batch-4 only); and search is case-insensitive ("CINNAMON" still matches). Clearing
+  the search restores all rows. The scratch build/server artifacts, local gem install, and the
+  temporary `playwright` pip package were all removed after.
+
 ## 2026-08-19 — Structured batch data, take 12: JSON export of the batch collection
 
 - **What:** Added [`dev-preview/batches/data.json`](batches/data.json), a Jekyll page (front

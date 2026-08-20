@@ -20,8 +20,11 @@ Click a column header to sort by it; click again to reverse. This replaces the p
 two separate pre-sorted tables (by type, by ABV) with one table sortable by any column — the
 server still renders it pre-sorted by type, so the page is still useful with JavaScript off.
 Click a type chip below to narrow the table to just that type; click "All" to clear the filter.
-Type the search box to narrow further by name — search and the type filter compose (e.g. filter to
-Melomel, then search "ember" within just that type). Each batch's own page title (e.g. "TRM Grotto
+Type the search box to narrow further by name **or by ingredient** — search and the type filter
+compose (e.g. filter to Melomel, then search "cinnamon" within just that type). Ingredient search
+checks every batch's `recipe:` `label`/`detail` pairs (e.g. searching "wildflower" finds any batch
+whose Honey line mentions it), the first time this prototype has queried the recipe data across
+batches rather than just rendering it on one page. Each batch's own page title (e.g. "TRM Grotto
 Ember", matching the real site's naming) is now the first column and the row's link, so a row
 identifies itself without needing to click through. A fourth sample batch,
 [demo-batch-4](../demo-batch-4/), is still **in progress** — no bottling date or ABV yet, just like
@@ -64,7 +67,7 @@ keep in sync.
 </div>
 
 <div class="batches-toolbar">
-  <input type="search" id="batch-search" class="batch-search" placeholder="Search batches by name…" aria-label="Search batches by name">
+  <input type="search" id="batch-search" class="batch-search" placeholder="Search by name or ingredient…" aria-label="Search batches by name or ingredient">
 
   <div class="filter-chips" role="group" aria-label="Filter batches by type">
     <button type="button" class="filter-chip is-active" data-filter-type="all" aria-pressed="true">All ({{ all_batches.size }})</button>
@@ -88,7 +91,9 @@ keep in sync.
   </thead>
   <tbody>
 {% for p in all_batches %}
-    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{% if p.batch.bottling_date %}{{ p.batch.bottling_date | date: '%s' }}{% endif %}">
+{% assign ingredient_text = "" %}
+{% for item in p.recipe %}{% assign ingredient_text = ingredient_text | append: item.label | append: " " | append: item.detail | append: " " %}{% endfor %}
+    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-ingredients="{{ ingredient_text | downcase | strip }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{% if p.batch.bottling_date %}{{ p.batch.bottling_date | date: '%s' }}{% endif %}">
       <td><a href="{{ p.url | relative_url }}">{{ p.title }}</a></td>
       <td>{{ p.batch.type }}</td>
       <td>{% if p.batch.abv %}{{ p.batch.abv }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
@@ -156,7 +161,9 @@ keep in sync.
     var rows = tbody.querySelectorAll('tr');
     rows.forEach(function (row) {
       var matchesType = activeType === 'all' || row.getAttribute('data-type') === activeType;
-      var matchesSearch = !query || row.getAttribute('data-name').indexOf(query) !== -1;
+      var matchesSearch = !query
+        || row.getAttribute('data-name').indexOf(query) !== -1
+        || row.getAttribute('data-ingredients').indexOf(query) !== -1;
       var show = matchesType && matchesSearch;
       row.style.display = show ? '' : 'none';
       if (show) visibleCount++;
