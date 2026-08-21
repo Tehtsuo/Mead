@@ -29,11 +29,17 @@ Ember", matching the real site's naming) is now the first column and the row's l
 identifies itself without needing to click through. A fourth sample batch,
 [demo-batch-4](../demo-batch-4/), is still **in progress** — no bottling date or ABV yet, just like
 several real batches on the live site — so those columns show "In progress" instead of a blank
-cell, and sort after every batch that has a real value.
+cell, and sort after every batch that has a real value. A **Duration** column shows how many days
+each finished batch spent from start to bottling — computed from `start_date`/`bottling_date`, not
+a field anyone has to type in — and sorts the same way as the other columns, in-progress batches
+last.
 
 The stat tiles below cover another third of FEEDBACK.md's original rationale for this whole
 direction — "no way to compute stats across batches" — rendered entirely from the same
-`all_batches` collection the table already uses, no separate data source. The
+`all_batches` collection the table already uses, no separate data source. The **Duration** column
+and "Avg. days to bottle" tile are both computed the same way — `start_date` minus `bottling_date`
+via Liquid's `date` filter — with no new front-matter field, since duration is fully derivable
+from data every batch already declares. The
 **[Export as JSON]({{ "/dev-preview/batches/data.json" | relative_url }})** link covers the last
 third — "feed the data anywhere else" — by publishing the same collection as a small `data.json`
 file, built at site-generation time from each batch's own front matter, no separate export step to
@@ -44,8 +50,15 @@ keep in sync.
 {% assign finished_batches = all_batches | where_exp: "p", "p.batch.abv_percent" %}
 {% assign in_progress_count = all_batches.size | minus: finished_batches.size %}
 {% assign abv_total = 0 %}
-{% for p in finished_batches %}{% assign abv_total = abv_total | plus: p.batch.abv_percent %}{% endfor %}
-{% if finished_batches.size > 0 %}{% assign avg_abv = abv_total | plus: 0.0 | divided_by: finished_batches.size | round: 1 %}{% endif %}
+{% assign duration_total = 0 %}
+{% for p in finished_batches %}
+{% assign abv_total = abv_total | plus: p.batch.abv_percent %}
+{% assign stat_start_ts = p.batch.start_date | date: '%s' %}
+{% assign stat_bottling_ts = p.batch.bottling_date | date: '%s' %}
+{% assign stat_duration = stat_bottling_ts | minus: stat_start_ts | divided_by: 86400 %}
+{% assign duration_total = duration_total | plus: stat_duration %}
+{% endfor %}
+{% if finished_batches.size > 0 %}{% assign avg_abv = abv_total | plus: 0.0 | divided_by: finished_batches.size | round: 1 %}{% assign avg_duration = duration_total | divided_by: finished_batches.size %}{% endif %}
 
 <div class="batch-stats">
   <div class="batch-stat">
@@ -63,6 +76,10 @@ keep in sync.
   <div class="batch-stat">
     <span class="batch-stat-value">{% if avg_abv %}{{ avg_abv }}%{% else %}—{% endif %}</span>
     <span class="batch-stat-label">Avg. ABV (finished)</span>
+  </div>
+  <div class="batch-stat">
+    <span class="batch-stat-value">{% if avg_duration %}{{ avg_duration }}{% else %}—{% endif %}</span>
+    <span class="batch-stat-label">Avg. days to bottle</span>
   </div>
 </div>
 
@@ -87,18 +104,25 @@ keep in sync.
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="abv" data-sort-type="number">ABV</button></th>
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="start" data-sort-type="number">Start date</button></th>
       <th scope="col" aria-sort="none"><button type="button" data-sort-key="bottling" data-sort-type="number">Bottling date</button></th>
+      <th scope="col" aria-sort="none"><button type="button" data-sort-key="duration" data-sort-type="number">Duration</button></th>
     </tr>
   </thead>
   <tbody>
 {% for p in all_batches %}
 {% assign ingredient_text = "" %}
 {% for item in p.recipe %}{% assign ingredient_text = ingredient_text | append: item.label | append: " " | append: item.detail | append: " " %}{% endfor %}
-    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-ingredients="{{ ingredient_text | downcase | strip }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{% if p.batch.bottling_date %}{{ p.batch.bottling_date | date: '%s' }}{% endif %}">
+{% if p.batch.bottling_date %}
+{% assign row_start_ts = p.batch.start_date | date: '%s' %}
+{% assign row_bottling_ts = p.batch.bottling_date | date: '%s' %}
+{% assign row_duration = row_bottling_ts | minus: row_start_ts | divided_by: 86400 %}
+{% endif %}
+    <tr data-type="{{ p.batch.type | downcase }}" data-name="{{ p.title | downcase }}" data-ingredients="{{ ingredient_text | downcase | strip }}" data-abv="{{ p.batch.abv_percent }}" data-start="{{ p.batch.start_date | date: '%s' }}" data-bottling="{% if p.batch.bottling_date %}{{ p.batch.bottling_date | date: '%s' }}{% endif %}" data-duration="{% if p.batch.bottling_date %}{{ row_duration }}{% endif %}">
       <td><a href="{{ p.url | relative_url }}">{{ p.title }}</a></td>
       <td>{{ p.batch.type }}</td>
       <td>{% if p.batch.abv %}{{ p.batch.abv }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
       <td>{{ p.batch.start_date }}</td>
       <td>{% if p.batch.bottling_date %}{{ p.batch.bottling_date }}{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
+      <td>{% if p.batch.bottling_date %}{{ row_duration }} days{% else %}<em class="batch-in-progress">In progress</em>{% endif %}</td>
     </tr>
 {% endfor %}
   </tbody>

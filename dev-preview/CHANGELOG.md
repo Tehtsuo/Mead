@@ -8,6 +8,48 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-21 — Structured batch data, take 14: computed Duration column
+
+- **What:** Added a **Duration** column to the [all-batches index](batches/)'s sortable table,
+  showing how many days each finished batch spent from `start_date` to `bottling_date`, plus a
+  fifth "Avg. days to bottle" stat tile alongside the existing four. Neither is a new front-matter
+  field — both are computed at build time from the `start_date`/`bottling_date` strings every
+  batch already declares, via Liquid's `date: '%s'` filter (already used for the timestamp-sort
+  attributes) subtracted and divided by 86400. The column plugs into the existing generic
+  `data-sort-key`/`data-sort-type="number"` sort mechanism with no new JS — it already handles
+  missing values (the in-progress sample batch's empty `data-duration`) by sorting them last in
+  either direction, the same as the ABV/Bottling date columns. Updated the page's intro text and
+  [`schema.md`](schema.html) to note Duration is derived, not a field to add when writing a new
+  batch.
+- **Why:** FEEDBACK.md's own rationale for the whole direction names "no way to compute stats
+  across batches" as one of hand-typed Markdown's core limits. Take 11 covered that with an
+  average-ABV stat, but every computed value since has drawn only from `abv_percent` — the two
+  date fields (`start_date`/`bottling_date`) have been rendered and sorted individually across
+  thirteen takes but never combined into a new fact the way `abv_percent` was. A duration/
+  time-to-bottle figure is a natural, useful cross-batch stat (mirrors what a mead-maker would
+  actually want to know — "how long did this batch take") that falls entirely out of data already
+  present, with zero new front-matter to maintain. This is explicitly *not* a gravity/ABV
+  visualization or calculator (the thing FEEDBACK.md flagged as not wanted) — it's a plain date
+  difference on the two Overview-table date fields, unrelated to gravity readings.
+- **Assets:** None — reused the existing `.batch-stat`/`.sortable-table`/`.batch-in-progress` CSS
+  and sort JS, no new icon files or style rules.
+- **Scope:** Edited `dev-preview/batches/index.md` (Duration column markup, `data-duration`
+  attribute, per-row and stat-tile Liquid duration calculations, intro text) and
+  `dev-preview/schema.md` (one clarifying paragraph) — both under `dev-preview/**`. No CSS changes
+  needed since the new column/tile reuse existing classes.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair (`liquid`
+  pinned to 4.0.4, matching prior takes), built the full site to a scratch directory, confirmed no
+  Liquid/build errors, correct `data-duration` values on each row (demo-batch: 59, demo-batch-2:
+  125, demo-batch-3: 151, demo-batch-4 in-progress: empty), correct table cells ("59 days" etc. vs.
+  "In progress"), and the "Avg. days to bottle" tile computing 111 (the integer-divided mean of
+  59/125/151). No `_includes:`/`_scripts:` leakage into `_site/`. Installed a local, uncommitted
+  `playwright` pip package (browsers were already present in this environment) and used headless
+  Chromium against the served scratch build to click through: clicking the Duration header sorts
+  ascending then descending correctly with the in-progress row always last; searching "cinnamon"
+  and filtering to the Pyment type chip still work exactly as before, composing correctly with the
+  new column present. The scratch build/server artifacts, local gem install, and temporary
+  `playwright` pip package were all removed after.
+
 ## 2026-08-20 — Structured batch data, take 13: ingredient search on the all-batches index
 
 - **What:** Extended the [all-batches index](batches/)'s existing name-search box (take 6) to also

@@ -31,6 +31,12 @@ prose into structured fields.
 | `abv`         | string | optional  | Free-text display value, e.g. `"~13%"`. Omit while in progress, same as `bottling_date`. |
 | `abv_percent` | number | optional  | Plain number (e.g. `13`), used *only* for the all-batches index's numeric ABV sort — Liquid can't parse `"~13%"` as a number. Omit while `abv` is omitted; there's nothing to sort yet. |
 
+The [all-batches index](batches/)'s **Duration** column and "Avg. days to bottle" stat aren't a
+front-matter field at all — they're computed at build time from `start_date`/`bottling_date` via
+Liquid's `date` filter, the same way `abv_percent` only exists to make ABV sortable. Nothing to
+add when writing a new batch's front matter; it falls out of the two dates every batch already
+has.
+
 ### `recipe:` — Recipe list
 
 A list of ingredient entries, each a `label`/`detail` pair:
