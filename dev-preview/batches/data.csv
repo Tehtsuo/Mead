@@ -1,0 +1,17 @@
+---
+layout: null
+---
+Name,Type,ABV,Start date,Bottling date,Duration
+{% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" -%}
+{%- for p in all_batches -%}
+{%- if p.batch.bottling_date -%}
+{%- assign row_start_ts = p.batch.start_date | date: '%s' -%}
+{%- assign row_bottling_ts = p.batch.bottling_date | date: '%s' -%}
+{%- assign row_duration_text = row_bottling_ts | minus: row_start_ts | divided_by: 86400 | append: " days" -%}
+{%- else -%}
+{%- assign row_duration_text = "In progress" -%}
+{%- endif -%}
+{%- assign row_abv_text = p.batch.abv | default: "In progress" -%}
+{%- assign row_bottling_text = p.batch.bottling_date | default: "In progress" -%}
+"{{ p.title | replace: '"', '""' }}","{{ p.batch.type | replace: '"', '""' }}","{{ row_abv_text | replace: '"', '""' }}","{{ p.batch.start_date | replace: '"', '""' }}","{{ row_bottling_text | replace: '"', '""' }}","{{ row_duration_text }}"
+{% endfor -%}

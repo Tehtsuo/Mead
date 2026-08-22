@@ -8,6 +8,44 @@ description: Dev Preview Changelog
 
 One entry per dev cycle: what changed, why, and any asset sources/licenses used.
 
+## 2026-08-22 — Structured batch data, take 15: CSV export of the batch collection
+
+- **What:** Added [`dev-preview/batches/data.csv`](batches/data.csv), a second export of the
+  all-batches collection alongside take 12's `data.json`, this time as a flat CSV with one row per
+  batch and the same six columns already shown in the [all-batches table](batches/) (Name, Type,
+  ABV, Start date, Bottling date, Duration) — including the computed Duration figure, not just raw
+  front-matter fields. Unlike the JSON export, this deliberately does *not* carry the nested
+  `recipe:`/`gravity_log:` lists, which don't have a natural flat-row shape; it's a companion for a
+  different consumer (a spreadsheet) rather than a superset or replacement of the JSON export (a
+  script/program). Every field is quoted and internal quotes are escaped (`""`) since several
+  values — the human-readable dates in particular, e.g. `"March 3, 2026"` — contain a literal comma
+  that would otherwise break column alignment. Added a second **"⬇ Export as CSV"** pill next to the
+  existing JSON one in the toolbar, reusing the same `.export-link` CSS with no new rules, and
+  extended the intro paragraph to explain the JSON-vs-CSV distinction.
+- **Why:** Take 12 covered "feed the data anywhere else" with JSON, but JSON only serves a
+  script/program consumer — it's still one extra step (write code, or paste into a JSON-to-table
+  converter) for the much more common case of "I just want this in a spreadsheet." A CSV mirroring
+  the table's own columns is the natural, minimal complement: same underlying `all_batches`
+  collection, same computed Duration column, just a different output shape for a different tool,
+  and it's a small, self-contained addition rather than a new direction.
+- **Assets:** None — reused the existing `.export-link` CSS, no new icon files or style rules.
+- **Scope:** Added `dev-preview/batches/data.csv`; edited `dev-preview/batches/index.md` (intro
+  sentence + toolbar export link) — both under `dev-preview/**`. No CSS or other files touched.
+- **Verified:** Reinstalled a local, uncommitted `jekyll`/`jekyll-theme-cayman` gem pair (confirmed
+  `liquid` pins to 4.0.4, same as prior takes), built the full site to a scratch directory,
+  confirmed no Liquid/build errors and no `_includes/`/`_scripts/` leakage. Validated `data.csv`
+  directly with Python's `csv` module (parses cleanly into 5 rows: header + 4 sample batches) and
+  by eye: values match the table exactly, including the in-progress sample batch rendering "In
+  progress" in ABV/Bottling date/Duration the same as the table does, and dates with embedded
+  commas (e.g. "August 1, 2026") stay in one column rather than splitting. Served the scratch build
+  locally and confirmed the file responds `200` with `Content-Type: text/csv`. Installed a local,
+  uncommitted `playwright` pip package (browsers were already present in this environment) and used
+  headless Chromium to screenshot the toolbar (both export pills render correctly side by side),
+  confirm existing sort/search/type-filter still work unaffected, and click the new CSV link to
+  confirm it downloads as `batches.csv` with the expected content (`page.expect_download`). The
+  scratch build/server artifacts, local gem install, and temporary `playwright` pip package were
+  all removed after.
+
 ## 2026-08-21 — Structured batch data, take 14: computed Duration column
 
 - **What:** Added a **Duration** column to the [all-batches index](batches/)'s sortable table,

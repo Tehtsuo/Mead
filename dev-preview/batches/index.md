@@ -43,7 +43,11 @@ from data every batch already declares. The
 **[Export as JSON]({{ "/dev-preview/batches/data.json" | relative_url }})** link covers the last
 third — "feed the data anywhere else" — by publishing the same collection as a small `data.json`
 file, built at site-generation time from each batch's own front matter, no separate export step to
-keep in sync.
+keep in sync. A second **[Export as CSV]({{ "/dev-preview/batches/data.csv" | relative_url }})**
+link sits next to it for the same purpose in a different shape — the JSON export carries every
+structured field (including the nested `recipe:`/`gravity_log:` lists) for a script to consume,
+while the CSV mirrors just this table's own columns (Name, Type, ABV, both dates, Duration) as a
+flat file a spreadsheet can open directly, no script required.
 
 {% assign all_batches = site.pages | where_exp: "p", "p.batch" | sort: "batch.type" %}
 {% assign batch_type_groups = all_batches | group_by_exp: "p", "p.batch.type" | sort: "name" %}
@@ -94,6 +98,7 @@ keep in sync.
   </div>
 
   <a class="export-link" href="{{ "/dev-preview/batches/data.json" | relative_url }}" download="batches.json">⬇ Export as JSON</a>
+  <a class="export-link" href="{{ "/dev-preview/batches/data.csv" | relative_url }}" download="batches.csv">⬇ Export as CSV</a>
 </div>
 
 <table class="sortable-table" id="batches-table">
