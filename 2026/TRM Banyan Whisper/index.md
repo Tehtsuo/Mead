@@ -9,11 +9,10 @@ description: TRM Banyan Whisper
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Acerglyn |
+| **Start date** | August 26, 2026 |
 | **Bottling date** | |
 | **ABV** | |
-| **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
 
@@ -21,12 +20,13 @@ description: TRM Banyan Whisper
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
-
+- Honey: ~2 lbs Kirkland Wildflower Honey
+- Maple Syrup: ~1.45 lbs Kirkland Maple Syrup
+- Water: ~1 gallon water
+- Yeast: 1/2 Lalvin 71B
+- Nutrient: 2 tsp Fermaid-o
+- 1/2 tsp Wine Tannins
+  
 ## Gravity & Fermentation Log
 
 ## Brewing Notes
