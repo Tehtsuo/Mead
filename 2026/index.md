@@ -16,4 +16,5 @@ description: 2026 Batches
 - [TRM Isle Amber](TRM%20Isle%20Amber/)
 - [TRM Windward Hive](TRM%20Windward%20Hive/)
 - [TRM Banyan Whisper](TRM%20Banyan%20Whisper/)
+- [TRM Savanna Cellar](TRM%20Savanna%20Cellar/)
 <!-- BATCH_LIST_END -->
