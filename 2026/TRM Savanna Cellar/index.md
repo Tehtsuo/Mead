@@ -23,8 +23,8 @@ description: TRM Savanna Cellar
 - Honey: ~3 lb 2 oz Kirkland Wildflower Honey
 - Water: 1.2 gallon Fill
 - Yeast: 1/2 Lalvin 71B
-- Nutrient: Fermaid-O
-- 2 tsp Fermaid-o
+- Nutrient: 2 tsp Fermaid-O
+- 1/2 tsp Wine Tannins
 
 ## Gravity & Fermentation Log
 
