@@ -17,4 +17,5 @@ description: 2026 Batches
 - [TRM Windward Hive](TRM%20Windward%20Hive/)
 - [TRM Banyan Whisper](TRM%20Banyan%20Whisper/)
 - [TRM Savanna Cellar](TRM%20Savanna%20Cellar/)
+- [TRM Reef Bloom](TRM%20Reef%20Bloom/)
 <!-- BATCH_LIST_END -->
