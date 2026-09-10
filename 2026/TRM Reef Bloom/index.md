@@ -20,15 +20,15 @@ description: TRM Reef Bloom
 
 ## Recipe
 
-- Honey: ~3 lb 2 oz Kirkland Wildflower Honey
-- Water: 1.2 gallon Fill
+- Honey: ~3 lb 2.9 oz Kirkland Wildflower Honey (Meant to be 3 lb 2 oz, oops)
+- Water: 9 lb 5.8 oz
 - Yeast: 1/2 Lalvin 71B
 - Nutrient: 2 tsp Fermaid-O
 - 1/2 tsp Wine Tannins
-- Fruit / Spice: 1 Cinnamon stick, 2 cloves, 8 allspice berries, 30 raisins
+- Fruit / Spice: 1 Cinnamon stick, 2 cloves, 8 allspice berries, 30 raisins, 2 pinches of citrus peel
 
 ## Gravity & Fermentation Log
 
 ## Brewing Notes
 
--
+- For this brew, I'm skipping the stir.  I have my white iSpindel wireless hydrometer in the brew, so I should be able to see when the brew is complete.  So, the beginning of the brew should be a rough arc that never shows the full OG of the brew.  But, since I have weights, I can calculate the OG: 1.082.
