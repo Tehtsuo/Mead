@@ -9,11 +9,10 @@ description: TRM Reef Bloom
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Spiced Metheglin |
+| **Start date** | September 9, 2026 |
 | **Bottling date** | |
 | **ABV** | |
-| **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
 
@@ -21,11 +20,12 @@ description: TRM Reef Bloom
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: ~3 lb 2 oz Kirkland Wildflower Honey
+- Water: 1.2 gallon Fill
+- Yeast: 1/2 Lalvin 71B
+- Nutrient: 2 tsp Fermaid-O
+- 1/2 tsp Wine Tannins
+- Fruit / Spice: 1 Cinnamon stick, 2 cloves, 8 allspice berries, 30 raisins
 
 ## Gravity & Fermentation Log
 
