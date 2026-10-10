@@ -11,9 +11,8 @@ description: TRM Windward Hive
 |---|---|
 | **Type** | Spiced Metheglin |
 | **Start date** | August 19, 2026 |
-| **Bottling date** | |
-| **ABV** | |
-| **Fermentrack** | |
+| **Bottling date** | October 10, 2026 |
+| **ABV** | ? |
 
 ![QR code linking to this page](qr.svg)
 
@@ -31,4 +30,4 @@ description: TRM Windward Hive
 
 ## Brewing Notes
 
--
+- Turned out very sweet.  This is one of the last batches without an OG reading.
