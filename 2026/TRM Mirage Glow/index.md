@@ -11,7 +11,7 @@ description: TRM Mirage Glow
 |---|---|
 | **Type** | Dragon's Blood |
 | **Start date** | June 4, 2026 |
-| **Bottling date** | |
+| **Bottling date** | October 10, 2026 |
 | **ABV** | 12% |
 
 ![QR code linking to this page](qr.svg)
