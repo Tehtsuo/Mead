@@ -12,7 +12,7 @@ description: TRM Isle Amber
 | **Type** | Traditional |
 | **Start date** | August 11, 2026 |
 | **Bottling date** | October 25, 2026 |
-| **ABV** | |
+| **ABV** | 12% |
 
 ![QR code linking to this page](qr.svg)
 
