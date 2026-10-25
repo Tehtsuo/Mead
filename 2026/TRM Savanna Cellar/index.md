@@ -30,4 +30,4 @@ description: TRM Savanna Cellar
 
 ## Brewing Notes
 
--
+- 10/25: Moved from Primary to secondary
