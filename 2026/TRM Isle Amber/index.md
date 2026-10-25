@@ -11,9 +11,8 @@ description: TRM Isle Amber
 |---|---|
 | **Type** | Traditional |
 | **Start date** | August 11, 2026 |
-| **Bottling date** | |
+| **Bottling date** | October 25, 2026 |
 | **ABV** | |
-| **Fermentrack** | [View Log](https://www.fermentrack.net/ferment_log/873d1f37-bcc0-4108-8452-b3cc45b7598c) |
 
 ![QR code linking to this page](qr.svg)
 
@@ -32,3 +31,7 @@ description: TRM Isle Amber
 ## Brewing Notes
 
 - 1.110 OG
+- 10/02 Racked from Primary to Conditioning vessel
+- 10/25 1.016 FG
+- 10/25 1.030 Backsweetened
+- 10/25 Pasteurized
