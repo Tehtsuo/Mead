@@ -18,4 +18,5 @@ description: 2026 Batches
 - [TRM Banyan Whisper](TRM%20Banyan%20Whisper/)
 - [TRM Savanna Cellar](TRM%20Savanna%20Cellar/)
 - [TRM Reef Bloom](TRM%20Reef%20Bloom/)
+- [TRM Zephyr Wanderer](TRM%20Zephyr%20Wanderer/)
 <!-- BATCH_LIST_END -->
