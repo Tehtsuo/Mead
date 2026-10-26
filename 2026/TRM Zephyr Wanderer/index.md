@@ -9,11 +9,10 @@ description: TRM Zephyr Wanderer
 
 | | |
 |---|---|
-| **Type** | |
-| **Start date** | |
+| **Type** | Spiced Metheglin |
+| **Start date** | October 26, 2026 |
 | **Bottling date** | |
 | **ABV** | |
-| **Fermentrack** | |
 
 ![QR code linking to this page](qr.svg)
 
@@ -21,13 +20,16 @@ description: TRM Zephyr Wanderer
 
 ## Recipe
 
-- Honey:
-- Water:
-- Yeast:
-- Nutrient:
-- Fruit / Spice:
+- Honey: 3 lbs 2.2 oz
+- Water: 1.2 gallons
+- Yeast: 1/2 Lalvin 71B
+- Nutrient: 2 tsp Fermaid-O
+- 1/2 tsp Wine Tannins
+- Fruit / Spice: 1 Cinnamon stick, 2 cloves, 8 allspice berries, 30 raisins, 2 pinches of citrus peel
 
 ## Gravity & Fermentation Log
+
+- OG: 
 
 ## Brewing Notes
 
